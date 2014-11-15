@@ -1,15 +1,16 @@
 package com.css.kwikthinker;
 
-import com.css.kwikthinker.util.SystemUiHider;
-
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
+import android.content.Intent;
+
+import com.css.kwikthinker.util.SystemUiHider;
 
 
 /**
@@ -49,6 +50,8 @@ public class MainActivity extends Activity {
 
         final View controlsView = findViewById(R.id.fullscreen_content_controls);
         final View contentView = findViewById(R.id.fullscreen_content);
+
+        Button myButt = (Button)findViewById(R.id.start_endless_mode_button);
 
         // Set up an instance of SystemUiHider to control the system UI for
         // this activity.
@@ -103,22 +106,6 @@ public class MainActivity extends Activity {
         delayedHide(100);
     }
 
-
-    /**
-     * Touch listener to use for in-layout UI controls to delay hiding the
-     * system UI. This is to prevent the jarring behavior of controls going away
-     * while interacting with activity UI.
-     */
-    View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-            if (AUTO_HIDE) {
-                delayedHide(AUTO_HIDE_DELAY_MILLIS);
-            }
-            return false;
-        }
-    };
-
     Handler mHideHandler = new Handler();
     Runnable mHideRunnable = new Runnable() {
         @Override
@@ -134,5 +121,10 @@ public class MainActivity extends Activity {
     private void delayedHide(int delayMillis) {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
+    }
+
+    public void startEndlessMode(View view) {
+        Intent intent = new Intent(this, GameMode.class);
+        startActivity(intent);
     }
 }

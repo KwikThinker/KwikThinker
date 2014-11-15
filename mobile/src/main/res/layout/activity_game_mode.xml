@@ -17,22 +17,32 @@
         android:textSize="50sp"
         android:gravity="center" />
 
-    <!-- This FrameLayout insets its children based on system windows using
-         android:fitsSystemWindows. -->
-    <FrameLayout android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="250px"
+        android:text="@string/endless_mode_countdown"
+        android:id="@+id/countdownTV"
+        android:layout_gravity="center" />
 
-        <LinearLayout android:id="@+id/fullscreen_content_controls"
-            style="?metaButtonBarStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:background="@color/black_overlay"
-            android:orientation="horizontal"
-            tools:ignore="UselessParent">
+    <LinearLayout android:id="@+id/fullscreen_content_controls"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:background="@color/black_overlay"
+        android:orientation="horizontal"
+        tools:ignore="UselessParent">
+    </LinearLayout>
 
-        </LinearLayout>
-    </FrameLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/EM_START_BUTT_TEXT"
+        android:textSize="50dp"
+        android:id="@+id/button"
+        android:layout_gravity="center"
+        android:layout_marginTop="150dp"
+        android:onClick="onStartClick"/>
+
 
 </FrameLayout>

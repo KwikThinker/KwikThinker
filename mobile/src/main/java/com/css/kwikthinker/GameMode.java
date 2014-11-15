@@ -6,12 +6,15 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.MenuItem;
 import android.support.v4.app.NavUtils;
 import android.view.Window;
+import android.widget.Button;
+import android.widget.TextView;
 
 
 /**
@@ -26,6 +29,8 @@ public class GameMode extends Activity {
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
      */
     private static final boolean AUTO_HIDE = true;
+
+    private static final int NUM_SECONDS_PER_MILLISECOND = 1000;
 
     /**
      * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
@@ -43,12 +48,13 @@ public class GameMode extends Activity {
      */
     private SystemUiHider mSystemUiHider;
 
+    TextView countdownTV;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_game_mode);
-        setupActionBar();
 
         final View controlsView = findViewById(R.id.fullscreen_content_controls);
         final View contentView = findViewById(R.id.fullscreen_content);
@@ -94,6 +100,7 @@ public class GameMode extends Activity {
                         }
                     }
                 });
+        countdownTV = (TextView)findViewById(R.id.countdownTV);
     }
 
     @Override
@@ -106,15 +113,21 @@ public class GameMode extends Activity {
         delayedHide(100);
     }
 
-    /**
-     * Set up the {@link android.app.ActionBar}, if the API is available.
-     */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    private void setupActionBar() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            // Show the Up button in the action bar.
-            getActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+    public void onStartClick(View view)
+    {
+        // do countdown
+        CountDownTimer cdt = new CountDownTimer(5000, 1000) {
+            public void onTick(long ms) {
+                long s = ms / NUM_SECONDS_PER_MILLISECOND ;
+                countdownTV.setText(String.valueOf(s));
+            }
+
+            @Override
+            public void onFinish() {
+                countdownTV.setText("yolo");
+            }
+        };
+        cdt.start();
     }
 
     @Override

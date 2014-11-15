@@ -25,24 +25,22 @@
         android:fitsSystemWindows="true">
 
         <LinearLayout android:id="@+id/fullscreen_content_controls"
-            style="?metaButtonBarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
             android:background="@color/black_overlay"
             android:orientation="horizontal"
             tools:ignore="UselessParent">
-
-
         </LinearLayout>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/start_game_mode_button_text"
-            android:id="@+id/button"
+            android:id="@+id/start_endless_mode_button"
             android:layout_gravity="center|bottom"
-            android:layout_marginBottom="150dp" />
+            android:layout_marginBottom="150dp"
+            android:onClick="startEndlessMode"/>
     </FrameLayout>
 
 </FrameLayout>
