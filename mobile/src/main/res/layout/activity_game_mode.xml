@@ -2,8 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#CCCC00"
-    tools:context=".MainActivity">
+    android:background="#0099cc"
+    tools:context="com.css.kwikthinker.GameMode">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
@@ -12,11 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:keepScreenOn="true"
-        android:textColor="#FFFFCC"
+        android:textColor="#33b5e5"
         android:textStyle="bold"
         android:textSize="50sp"
-        android:gravity="center"
-        android:text="@string/ma_title_text" />
+        android:gravity="center" />
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
@@ -33,16 +32,7 @@
             android:orientation="horizontal"
             tools:ignore="UselessParent">
 
-
         </LinearLayout>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/start_game_mode_button_text"
-            android:id="@+id/button"
-            android:layout_gravity="center|bottom"
-            android:layout_marginBottom="150dp" />
     </FrameLayout>
 
 </FrameLayout>

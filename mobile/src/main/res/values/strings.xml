@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">KwikThinker</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
-
+    <string name="app_name">Kwik Thinker</string>
+    <string name="ma_title_text">KWIK THINKER</string>
+    <string name="title_activity_game_mode">KT Endless Mode</string>
+    <string name="start_game_mode_button_text">Start Endless Mode</string>
 </resources>
