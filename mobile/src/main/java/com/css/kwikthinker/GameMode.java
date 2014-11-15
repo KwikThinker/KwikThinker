@@ -125,7 +125,6 @@ public class GameMode extends Activity {
             public void onTick(long ms) {
                 long s = ms / NUM_SECONDS_PER_MILLISECOND ;
                 int a = (int)( ( s / 5.0 ) * 255 ); // TODO global consts
-                System.out.println(s + " ~~~~~ " + a );
                 if ( ms < 500 ) {
                     countdownTV.setText("");
                     return;
