@@ -1,5 +1,6 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/EM_frame_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0099cc"
@@ -23,7 +24,8 @@
         android:textSize="250px"
         android:text="@string/endless_mode_countdown"
         android:id="@+id/countdownTV"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:gravity="center" />
 
     <LinearLayout android:id="@+id/fullscreen_content_controls"
         android:layout_width="match_parent"
@@ -39,10 +41,9 @@
         android:layout_height="wrap_content"
         android:text="@string/EM_START_BUTT_TEXT"
         android:textSize="50dp"
-        android:id="@+id/button"
+        android:id="@+id/start_em_countdown"
         android:layout_gravity="center"
         android:layout_marginTop="150dp"
         android:onClick="onStartClick"/>
-
 
 </FrameLayout>
