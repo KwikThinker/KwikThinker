@@ -2,13 +2,13 @@ package com.css.kwikthinker;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.content.Intent;
 
 import com.css.kwikthinker.util.SystemUiHider;
 
