@@ -27,18 +27,9 @@ dependencies {
     compile fileTree(dir: 'mobile/mobile/src/main/java', include: ['*.jar'])
     // IBM Bluemix jars
     compile files('libs/ibmbluemix.jar')
-            compile files('libs/ibmcloudcode.jar')
-            compile files('libs/ibmcloudcode.jar')
-            compile files('libs/ibmdata.jar')
-            compile files('libs/ibmfilesync.jar')
-            compile files('libs/ibmlocation.jar')
-            compile files('libs/ibmpush.jar')
-
-    compile files('libs/ibmbluemix.jar')
+    compile files('libs/ibmcloudcode.jar')
+    compile files('libs/ibmdata.jar')
     compile files('libs/ibmfilesync.jar')
     compile files('libs/ibmlocation.jar')
-    compile files('libs/ibmcloudcode.jar')
     compile files('libs/ibmpush.jar')
-    compile files('libs/ibmdata.jar')
-
 }
