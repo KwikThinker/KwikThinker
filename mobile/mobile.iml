@@ -80,9 +80,15 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 20 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" exported="" name="ibmpush" level="project" />
+    <orderEntry type="library" exported="" name="ibmcloudcode" level="project" />
+    <orderEntry type="library" exported="" name="ibmfilesync" level="project" />
+    <orderEntry type="library" exported="" name="ibmlocation" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-20.0.0" level="project" />
     <orderEntry type="library" exported="" name="support-v4-20.0.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-5.0.89" level="project" />
+    <orderEntry type="library" exported="" name="ibmbluemix" level="project" />
+    <orderEntry type="library" exported="" name="ibmdata" level="project" />
   </component>
 </module>
 
