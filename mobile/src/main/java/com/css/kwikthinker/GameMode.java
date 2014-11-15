@@ -1,21 +1,20 @@
 package com.css.kwikthinker;
 
-import com.css.kwikthinker.util.SystemUiHider;
-
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.support.v4.app.NavUtils;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.MenuItem;
-import android.support.v4.app.NavUtils;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
-
+import com.css.kwikthinker.util.SystemUiHider;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -49,6 +48,7 @@ public class GameMode extends Activity {
     private SystemUiHider mSystemUiHider;
 
     TextView countdownTV;
+    Button startButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +101,10 @@ public class GameMode extends Activity {
                     }
                 });
         countdownTV = (TextView)findViewById(R.id.countdownTV);
+        /*countdownTV.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
+                LayoutParams.WRAP_CONTENT,
+                0.75f));); // TODO take up 75% of parent width - can't do in XML */
+        startButton = (Button)findViewById(R.id.start_em_countdown);
     }
 
     @Override
@@ -115,18 +119,31 @@ public class GameMode extends Activity {
 
     public void onStartClick(View view)
     {
-        // do countdown
-        CountDownTimer cdt = new CountDownTimer(5000, 1000) {
+        ViewGroup v = (ViewGroup)startButton.getParent();
+        v.removeView(startButton);
+        CountDownTimer cdt = new CountDownTimer(5200, 1000) {
             public void onTick(long ms) {
                 long s = ms / NUM_SECONDS_PER_MILLISECOND ;
+                int a = (int)( ( s / 5.0 ) * 255 ); // TODO global consts
+                System.out.println(s + " ~~~~~ " + a );
+                if ( ms < 500 ) {
+                    countdownTV.setText("");
+                    return;
+                }
                 countdownTV.setText(String.valueOf(s));
+                countdownTV.setTextColor(countdownTV.getTextColors().withAlpha(a));
             }
 
             @Override
             public void onFinish() {
-                countdownTV.setText("yolo");
+                countdownTV.setTextColor(countdownTV.getTextColors().withAlpha(255));
+                countdownTV.setTextSize(40);
+                // TODO k-v pairs: (QuestionString, TextSize)
+                // TODO the above solution: great for hackathon, terrible for the long run
+                countdownTV.setText("Abe Washington was the first President of the United States");
             }
         };
+        // do countdown
         cdt.start();
     }
 
