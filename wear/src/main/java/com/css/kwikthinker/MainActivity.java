@@ -17,7 +17,7 @@ public class MainActivity extends Activity {
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
-                mTextView = (TextView) stub.findViewById(R.id.text);
+            mTextView = (TextView) stub.findViewById(R.id.text);
             }
         });
     }

@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0099cc"
+    android:background="#CCCC00"
     tools:context=".MainActivity">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:keepScreenOn="true"
-        android:textColor="#33b5e5"
+        android:textColor="#FFFFCC"
         android:textStyle="bold"
         android:textSize="50sp"
         android:gravity="center"
