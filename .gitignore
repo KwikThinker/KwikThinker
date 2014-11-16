@@ -6,3 +6,6 @@
 /build
 mobile/build.gradle
 /mobile/build.gradle
+.idea
+.idea/
+
