@@ -51,12 +51,4 @@ public class Question {
     public void setAnswers(String[] _answers) {
         this._answers = _answers;
     }
-
-    public double[] getPercentages() {
-        return _percentages;
-    }
-
-    public void setPercentages(double[] _percentages) {
-        this._percentages = _percentages;
-    }
 }
