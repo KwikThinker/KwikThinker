@@ -10,3 +10,7 @@ mobile/build.gradle
 .idea/
 
 Bolts/build/intermediates/
+Bolts/build/generated/source/buildConfig/test/
+Bolts/build/outputs/
+Bolts/build/tmp/
+*.apk
