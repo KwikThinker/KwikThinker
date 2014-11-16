@@ -60,7 +60,7 @@
             android:text="View project on GitHub"
             android:id="@+id/button"
             android:layout_gravity="center|bottom"
-            android:onClick="doTheThingThatInvolvesOpeningTheWebBrowserToTheGithubPageUponHittingTheButtonInTheMainActivity"
+            android:onClick="thisIsTheMethodThatIsIntendedToDoTheThingThatInvolvesOpeningTheWebBrowserToTheGithubPageUponHittingTheButtonInTheMainActivityAndItsNameAlsoHappensToBeVeryLongBecauseItHelpsObfuscateCodeIfYouThinkAboutItJustALittleBit"
             android:layout_marginBottom="60dp" />
     </FrameLayout>
 

@@ -124,7 +124,7 @@ public class MainActivity extends Activity {
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
 
-    public void doTheThingThatInvolvesOpeningTheWebBrowserToTheGithubPageUponHittingTheButtonInTheMainActivity(View view) {
+    public void thisIsTheMethodThatIsIntendedToDoTheThingThatInvolvesOpeningTheWebBrowserToTheGithubPageUponHittingTheButtonInTheMainActivityAndItsNameAlsoHappensToBeVeryLongBecauseItHelpsObfuscateCodeIfYouThinkAboutItJustALittleBit(View view) {
         // note: can also open in the GitHub app if your OS is configured to do so / you have the GH app installed
         Intent browserIntent = new Intent(Intent.ACTION_VIEW,
                 Uri.parse("https://github.com/chrissprague/KwikThinker"));
