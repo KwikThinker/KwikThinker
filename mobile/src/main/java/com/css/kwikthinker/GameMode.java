@@ -62,6 +62,7 @@ public class GameMode extends Activity {
         Color.CYAN,
         Color.YELLOW,
         Color.WHITE };
+    private static int lastColor = Color.BLUE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,21 +142,24 @@ public class GameMode extends Activity {
         ViewGroup v = (ViewGroup)startButton.getParent();
         v.removeView(startButton);
         CountDownTimer cdt = new CountDownTimer(5000, 10) {
-            public void onTick(long ms) {
-                long s = ms / NUM_SECONDS_PER_MILLISECOND ;
-                int a = (int)( ( s / 5.0 ) * 255 ); // TODO global consts
-                if ( ms < 50 ) {
-                    countdownTV.setText("");
-                    return;
-                }
-                countdownTV.setText(String.valueOf(s));
-                countdownTV.setTextColor(countdownTV.getTextColors().withAlpha(a));
-            }
 
             @Override
             public void onFinish() {
                 spawnQuestion();
             }
+
+
+            public void onTick(long ms) {
+                long s = ms / NUM_SECONDS_PER_MILLISECOND + 1;
+                int a = (int)( ( s / 5.0 ) * 255 ); // TODO global consts
+                if ( ms < 50 ) {
+                    countdownTV.setText("");
+                }
+                countdownTV.setText(String.valueOf(s));
+                countdownTV.setTextColor(countdownTV.getTextColors().withAlpha(a));
+            }
+
+
         };
         // do countdown
         cdt.start();
@@ -170,6 +174,9 @@ public class GameMode extends Activity {
 
         countdownTV.setTextColor(countdownTV.getTextColors().withAlpha(255));
         int colour = (int) Math.floor(Math.random() * 7); // im british... and pissed!
+        while ( colour == lastColor )
+            colour = (int) Math.floor(Math.random() * 7);
+        lastColor = colour; // so we don't get repeated randoms
         FrameLayout layout = (FrameLayout) findViewById( R.id.EM_frame_layout);
         layout.setBackgroundColor(COLOURS[colour]);
         countdownTV.setTextSize(40);
@@ -182,7 +189,10 @@ public class GameMode extends Activity {
 
         CountDownTimer cdt = new CountDownTimer(5000, 10) {
             public void onTick(long ms) {
+                // this... just... what? (looks the nicest, for who knows why)
                 countdownProgressBar.setProgress(countdownProgressBar.getProgress()-16);
+                // this refers to my confusion over why a decrement of 16 is the trick
+                // this could be an asynchronous problem
             }
 
             @Override
