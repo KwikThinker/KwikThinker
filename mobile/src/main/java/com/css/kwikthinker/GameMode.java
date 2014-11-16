@@ -3,11 +3,14 @@ package com.css.kwikthinker;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v4.app.NavUtils;
+import android.view.GestureDetector;
+import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,7 +20,18 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import com.css.kwikthinker.util.SystemUiHider;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -25,7 +39,7 @@ import com.css.kwikthinker.util.SystemUiHider;
  *
  * @see SystemUiHider
  */
-public class GameMode extends Activity {
+public class GameMode extends Activity implements View.OnClickListener{
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -64,9 +78,24 @@ public class GameMode extends Activity {
         Color.WHITE };
     private static int lastColor = Color.BLUE;
 
+    private static final int SWIPE_MIN_DISTANCE = 120;
+    private static final int SWIPE_MAX_OFF_PATH = 250;
+    private static final int SWIPE_THRESHOLD_VELOCITY = 200;
+    private GestureDetector gestureDetector;
+    View.OnTouchListener gestureListener;
+
+    // user input gets locked once they've answered once
+    private static boolean inputLockedOnResponse = false;
+
+    private final ArrayList<SampleQuestion> QUESTIONS =
+            (new SampleQuestionProvider()).getSampleQuestions();
+
+    private Long JON_SKEETS_REPUTATION;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getRandomNumber(0, 20);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_game_mode);
 
@@ -114,6 +143,20 @@ public class GameMode extends Activity {
                         }
                     }
                 });
+
+
+        // Gesture detection
+        gestureDetector = new GestureDetector(this, new MyGestureDetector());
+        gestureListener = new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                return gestureDetector.onTouchEvent(event);
+            }
+        };
+
+        contentView.setOnClickListener(GameMode.this);
+        contentView.setOnTouchListener(gestureListener);
+
+
         countdownProgressBar = (ProgressBar)findViewById(R.id.progressBar);
         countdownProgressBar.setVisibility(View.INVISIBLE);
         countdownProgressBar.setMax(5000); // TODO GLOBAL CONST
@@ -170,7 +213,8 @@ public class GameMode extends Activity {
         //      background color
         //      question
 
-        countdownProgressBar.setProgress(5000);
+        countdownProgressBar.setProgress(5000); // reset progress bar
+        inputLockedOnResponse = false; // reset input lock for answering
 
         countdownTV.setTextColor(countdownTV.getTextColors().withAlpha(255));
         int colour = (int) Math.floor(Math.random() * 7); // im british... and pissed!
@@ -201,8 +245,53 @@ public class GameMode extends Activity {
             }
         }.start();
 
-
     }
+
+    /**
+     * Gesture detector detects left/right swipes.
+     */
+    class MyGestureDetector extends SimpleOnGestureListener {
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+
+            try {
+
+                if (Math.abs(e1.getY() - e2.getY()) > SWIPE_MAX_OFF_PATH)
+                    return false;
+
+                // right to left swipe
+                if(e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+                    inputLockedOnResponse = true;
+                    // LEFT SWIPE
+                    // ANSWER "NO"
+                    // LOCK INPUT UNTIL NEW QUESTION IS SPAWNED
+
+
+                }  else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+                    inputLockedOnResponse = true;
+                    // RIGHT SWIPE
+                    // ANSWER "YES"
+                    // LOCK INPUT UNTIL NEW QUESTION IS SPAWNED
+
+
+                }
+            } catch (Exception e) {
+                // nothing
+            }
+            return false;
+        }
+
+        @Override
+        public boolean onDown(MotionEvent e) {
+            return true;
+        }
+    }
+
+    public void onClick(View v) {
+        // nothing yet
+    }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -253,5 +342,244 @@ public class GameMode extends Activity {
     private void delayedHide(int delayMillis) {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
+    }
+
+
+
+
+
+
+
+
+
+
+    private static String readUrl(String urlString) {
+
+        try {
+            URL url = new URL(urlString);
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(url.openStream()));
+
+            String inputLine;
+            int i = 0;
+            while ((inputLine = in.readLine()) != null) {
+                if (inputLine.contains("<span class=\"count\">")) {
+                    Pattern regex = Pattern.compile("<span class=\"count\">(.*?)</span>", Pattern.DOTALL);
+                    Matcher matcher = regex.matcher(inputLine);
+                    Pattern regex2 = Pattern.compile("<([^<>]+)>([^<>]+)</\\1>");
+                    if (matcher.find()) {
+                        String result = matcher.group(1);
+                        return result;
+                    }
+                }
+                i++;
+            }
+            in.close();
+
+            return null; // TODO Change me
+
+            // look out- its the MURLEX!
+        } catch ( MalformedURLException murlex ) {
+            murlex.printStackTrace();
+        } catch ( IOException ioex ) {
+            ioex.printStackTrace();
+        }
+
+        return null;
+    }
+
+    // access stack overflow api
+    private class readURLAsyncTask extends AsyncTask<URL, Integer, Long> {
+
+        public Long doInBackground(URL ... urls){
+
+            try {
+                Long result;
+                URL url = new URL("http://stackoverflow.com/users/22656/jon-skeet");
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(url.openStream()));
+
+                String inputLine;
+                int i = 0;
+                while ((inputLine = in.readLine()) != null) {
+                    if (inputLine.contains("<span class=\"count\">")) {
+                        Pattern regex = Pattern.compile("<span class=\"count\">(.*?)</span>", Pattern.DOTALL);
+                        Matcher matcher = regex.matcher(inputLine);
+                        Pattern regex2 = Pattern.compile("<([^<>]+)>([^<>]+)</\\1>");
+                        if (matcher.find()) {
+                            result = Long.parseLong(matcher.group(1).replaceAll(",", ""));
+                            in.close();
+                            JON_SKEETS_REPUTATION = result;
+                            return result;
+                        }
+                    }
+                    i++;
+                }
+                in.close();
+
+                return null;
+
+                // look out- its the MURLEX!
+            } catch ( MalformedURLException murlex ) {
+                murlex.printStackTrace();
+            } catch ( IOException ioex ) {
+                ioex.printStackTrace();
+            } catch ( Exception ex ) {
+                ex.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    // lower bound and upper bound random #
+    public final int getRandomNumber(int lb, int ub) {
+
+        // arbitrary
+        readURLAsyncTask yolo = new readURLAsyncTask();
+        yolo.execute(null, null);
+
+        long startTime = System.currentTimeMillis();
+        while ( JON_SKEETS_REPUTATION == null )
+        {
+            // wait up to 10 seconds on fetching Jon Skeet's reputation
+            if ( System.currentTimeMillis() - startTime > 10000 ) break;
+        }
+
+        /* debug */
+        // System.err.println(" ........................... " + JON_SKEETS_REPUTATION);
+
+        if ( JON_SKEETS_REPUTATION != null ) {
+            // do something with Jon Skeet's reputation here
+        } else {
+            // we tried :(
+        }
+
+        return 2;
+    }
+
+    static class Item {
+        String title;
+        String link;
+        String description;
+    }
+
+    static class Page {
+        String title;
+        String link;
+        String description;
+        String language;
+        List<Item> items;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    private class SampleQuestion {
+        private final String QUESTION_STRING;
+        private final boolean ANSWER;
+
+        SampleQuestion ( final String s , final boolean a ) {
+            this.QUESTION_STRING = s;
+            this.ANSWER = a;
+        }
+    }
+
+    /* define a bunch of sample questions and the ability to fetch them. */
+    /* "YOu should really use an enum for this, you ding-dong" -Chris */
+    private class SampleQuestionProvider {
+        private final ArrayList<SampleQuestion> SAMPLE_QUESTIONS;
+
+        public SampleQuestionProvider() {
+            SAMPLE_QUESTIONS = new ArrayList<SampleQuestion>(16);
+            populate_sample_questions();
+        }
+
+        public ArrayList<SampleQuestion> getSampleQuestions(){
+            return this.SAMPLE_QUESTIONS;
+        }
+
+        /* I apologize in advance if any of these are wrong, I wrote this kinda fast -Chris*/
+        private final void populate_sample_questions()
+        {
+            SampleQuestion q1 = new SampleQuestion(
+                    "Abe Washington was the first President of the United States", false
+            );
+            SampleQuestion q2 = new SampleQuestion(
+                    "The square root of 2 is a real number", true
+            );
+            SampleQuestion q3 = new SampleQuestion(
+                    "Pi is a real number", true
+            );
+            SampleQuestion q4 = new SampleQuestion(
+                    "Pi is a rational number", false
+            );
+            SampleQuestion q5 = new SampleQuestion(
+                    "( ( 3 + 7 ) / 12 ) + ( 7 / 6 ) = 2", true
+            );
+            SampleQuestion q6 = new SampleQuestion(
+                    "The developers of the app, \"Kwik Thinker\", are very attractive", true
+            );
+            SampleQuestion q7 = new SampleQuestion(
+                    "RPI is located in Greece, New York", false
+            );
+            SampleQuestion q8 = new SampleQuestion(
+                    "Google's Nexus 6 was released in late 2013", false
+            );
+            SampleQuestion q9 = new SampleQuestion(
+                    "( ( ( T && !F ) || ( F && T ) ) && T )", true
+            );
+            SampleQuestion q10 = new SampleQuestion(
+                    "1536, Christopher Columbus crossed the River Styx", false
+            );
+            SampleQuestion q11 = new SampleQuestion(
+                    "Harvey Milk was the first openly gay person elected into California public office", true
+            );
+            SampleQuestion q12 = new SampleQuestion(
+                    "Android Studio replaced Eclipse and its ADK library as the official IDE for Android development, as determined by Google", true
+            );
+            SampleQuestion q13 = new SampleQuestion(
+                    "Jupiter is Roman equivalent of Greek mythology's king of the gods, Zues", true
+            );
+            SampleQuestion q14 = new SampleQuestion(
+                    "The average lifespan for women is larger than of men", false
+            );
+            SampleQuestion q15 = new SampleQuestion(
+                    "Git is a centralized Version Control System used widely across the Software Engineering industry", false
+            );
+            SampleQuestion q16 = new SampleQuestion(
+                    "One of Albert Einstein's most prominent accomplishments in his life was finding the answer to the \"P=NP\" problem", false
+            );
+
+            SAMPLE_QUESTIONS.add(q1);
+            SAMPLE_QUESTIONS.add(q2);
+            SAMPLE_QUESTIONS.add(q3);
+            SAMPLE_QUESTIONS.add(q4);
+            SAMPLE_QUESTIONS.add(q5);
+            SAMPLE_QUESTIONS.add(q6);
+            SAMPLE_QUESTIONS.add(q7);
+            SAMPLE_QUESTIONS.add(q8);
+            SAMPLE_QUESTIONS.add(q9);
+            SAMPLE_QUESTIONS.add(q10);
+            SAMPLE_QUESTIONS.add(q11);
+            SAMPLE_QUESTIONS.add(q12);
+            SAMPLE_QUESTIONS.add(q13);
+            SAMPLE_QUESTIONS.add(q14);
+            SAMPLE_QUESTIONS.add(q15);
+            SAMPLE_QUESTIONS.add(q16);
+
+        }
     }
 }
