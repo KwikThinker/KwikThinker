@@ -1,7 +1,6 @@
 package com.grc.data.bluemix;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.Log;
 
