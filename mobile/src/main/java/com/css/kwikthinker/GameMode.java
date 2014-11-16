@@ -2,7 +2,9 @@ package com.css.kwikthinker;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.res.AssetFileDescriptor;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -456,6 +458,12 @@ public class GameMode extends Activity implements View.OnClickListener{
                         NUM_CORRECT++;
                         NUM_YES++;
                         PERCENT_CORRECT = Float.valueOf(NUM_CORRECT) / Float.valueOf(NUM_ANSWERED) * 100;
+
+                        AssetFileDescriptor afd = getAssets().openFd("correct.m4a");
+                        MediaPlayer player = new MediaPlayer();
+                        player.setDataSource(afd.getFileDescriptor(),afd.getStartOffset(),afd.getLength());
+                        player.prepare();
+                        player.start();
 
                         imgView.setImageResource(R.drawable.korrect_answer144);
                         imgView.setScaleX(5);
