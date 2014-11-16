@@ -15,10 +15,14 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.css.kwikthinker.util.SystemUiHider;
 
@@ -85,7 +89,7 @@ public class GameMode extends Activity implements View.OnClickListener{
     View.OnTouchListener gestureListener;
 
     // user input gets locked once they've answered once
-    private static boolean inputLockedOnResponse = false;
+    private static boolean inputLockedOnResponse = true;
 
     private boolean correctAnswer;
 
@@ -93,6 +97,12 @@ public class GameMode extends Activity implements View.OnClickListener{
             (new SampleQuestionProvider()).getSampleQuestions();
 
     private Long JON_SKEETS_REPUTATION;
+
+    private int NUM_CORRECT = 0;
+    private int NUM_YES = 0;
+    private int NUM_NO  = 0;
+    private float PERCENT_CORRECT = 0;
+    private float NUM_ANSWERED = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -187,6 +197,12 @@ public class GameMode extends Activity implements View.OnClickListener{
 
         countdownTV.setTextSize(250);
 
+        NUM_CORRECT = 0;
+        NUM_YES = 0;
+        NUM_NO  = 0;
+        PERCENT_CORRECT = 0;
+        NUM_ANSWERED = 0;
+
         countdownProgressBar.setProgress(5000);
         startButton.setVisibility(View.INVISIBLE);
         playAgainButton.setVisibility(View.INVISIBLE);
@@ -220,7 +236,16 @@ public class GameMode extends Activity implements View.OnClickListener{
         //      background color
         //      question
 
+        if ( ! inputLockedOnResponse ) // time ran out!
+        {
+            NUM_ANSWERED++; // this is misleading, NUM_ANSWERED actually = number of questions seen
+            if ( correctAnswer )
+                NUM_YES++;
+            else
+                NUM_NO++;
 
+            updateStatsTextViews();
+        }
 
         countdownProgressBar.setProgress(5000); // reset progress bar
         inputLockedOnResponse = false; // reset input lock for answering
@@ -281,15 +306,101 @@ public class GameMode extends Activity implements View.OnClickListener{
                 if (Math.abs(e1.getY() - e2.getY()) > SWIPE_MAX_OFF_PATH)
                     return false;
 
+                final ImageView imgView = (ImageView) findViewById(R.id.answerFeedbackImageView);
+
                 // right to left swipe
                 if(e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+                    if ( correctAnswer && ! inputLockedOnResponse ) {
+
+                        NUM_ANSWERED++;
+                        NUM_CORRECT++;
+                        NUM_YES++;
+                        PERCENT_CORRECT = Float.valueOf(NUM_CORRECT) / Float.valueOf(NUM_ANSWERED) * 100;
+
+                        imgView.setImageResource(R.drawable.korrect_answer144);
+                        imgView.setScaleX(5);
+                        imgView.setScaleY(5);
+
+                        imgView.setVisibility(View.VISIBLE);
+                        AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
+                        anim.setDuration(750);
+                        anim.setRepeatCount(1);
+                        anim.setRepeatMode(Animation.REVERSE);
+                        imgView.startAnimation(anim);
+                        imgView.setVisibility(View.INVISIBLE);
+
+                        updateStatsTextViews();
+
+                    } else if ( ! inputLockedOnResponse ) {
+
+                        NUM_ANSWERED++;
+                        NUM_NO++;
+                        PERCENT_CORRECT = Float.valueOf(NUM_CORRECT) / Float.valueOf(NUM_ANSWERED) * 100;
+
+                        imgView.setImageResource(R.drawable.krong_answer144);
+                        imgView.setScaleX(5);
+                        imgView.setScaleY(5);
+
+                        imgView.setVisibility(View.VISIBLE);
+                        AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
+                        anim.setDuration(750);
+                        anim.setRepeatCount(1);
+                        anim.setRepeatMode(Animation.REVERSE);
+                        imgView.startAnimation(anim);
+                        imgView.setVisibility(View.INVISIBLE);
+
+                        updateStatsTextViews();
+
+                    }
                     inputLockedOnResponse = true;
                     // LEFT SWIPE
                     // ANSWER "NO"
-                    // LOCK INPUT UNTIL NEW QUESTION IS SPAWNED
+                    // LOCK INPUT UNTIL NEW QUESTION IS SPAWNEDiiu
 
 
                 }  else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+                    if ( ! correctAnswer && ! inputLockedOnResponse ) {
+
+                        NUM_ANSWERED++;
+                        NUM_CORRECT++;
+                        NUM_NO++;
+                        PERCENT_CORRECT = Float.valueOf(NUM_CORRECT) / Float.valueOf(NUM_ANSWERED) * 100;
+
+                        imgView.setImageResource(R.drawable.korrect_answer144);
+                        imgView.setScaleX(5);
+                        imgView.setScaleY(5);
+
+                        imgView.setVisibility(View.VISIBLE);
+                        AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
+                        anim.setDuration(750);
+                        anim.setRepeatCount(1);
+                        anim.setRepeatMode(Animation.REVERSE);
+                        imgView.startAnimation(anim);
+                        imgView.setVisibility(View.INVISIBLE);
+
+                        updateStatsTextViews();
+
+                    } else if ( ! inputLockedOnResponse ) {
+
+                        NUM_ANSWERED++;
+                        NUM_NO++;
+                        PERCENT_CORRECT = Float.valueOf(NUM_CORRECT) / Float.valueOf(NUM_ANSWERED) * 100;
+
+                        imgView.setImageResource(R.drawable.krong_answer144);
+                        imgView.setScaleX(5);
+                        imgView.setScaleY(5);
+
+                        imgView.setVisibility(View.VISIBLE);
+                        AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
+                        anim.setDuration(750);
+                        anim.setRepeatCount(1);
+                        anim.setRepeatMode(Animation.REVERSE);
+                        imgView.startAnimation(anim);
+                        imgView.setVisibility(View.INVISIBLE);
+
+                        updateStatsTextViews();
+
+                    }
                     inputLockedOnResponse = true;
                     // RIGHT SWIPE
                     // ANSWER "YES"
@@ -307,6 +418,50 @@ public class GameMode extends Activity implements View.OnClickListener{
         public boolean onDown(MotionEvent e) {
             return true;
         }
+    }
+
+    public void onToggleStatsToggle(View view) {
+        TextView av = (TextView) findViewById( R.id.averageValue    );
+        TextView ny = (TextView) findViewById( R.id.numYesValue     );
+        TextView nn = (TextView) findViewById( R.id.numNoValue      );
+        TextView nc = (TextView) findViewById( R.id.correctNumValue );
+
+        TextView avl = (TextView) findViewById( R.id.averageLabel    );
+        TextView nyl = (TextView) findViewById( R.id.numYesLabel     );
+        TextView nnl = (TextView) findViewById( R.id.numNoLabel      );
+        TextView ncl = (TextView) findViewById( R.id.numCorrectLabel );
+
+        ToggleButton tb = (ToggleButton) findViewById( R.id.toggleButton );
+        if ( tb.isChecked() ) {
+            av.setVisibility(View.VISIBLE);
+            ny.setVisibility(View.VISIBLE);
+            nn.setVisibility(View.VISIBLE);
+            nc.setVisibility(View.VISIBLE);
+            avl.setVisibility(View.VISIBLE);
+            nyl.setVisibility(View.VISIBLE);
+            nnl.setVisibility(View.VISIBLE);
+            ncl.setVisibility(View.VISIBLE);
+        } else {
+            av.setVisibility(View.INVISIBLE);
+            ny.setVisibility(View.INVISIBLE);
+            nn.setVisibility(View.INVISIBLE);
+            nc.setVisibility(View.INVISIBLE);
+            avl.setVisibility(View.INVISIBLE);
+            nyl.setVisibility(View.INVISIBLE);
+            nnl.setVisibility(View.INVISIBLE);
+            ncl.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private void updateStatsTextViews () {
+        TextView av = (TextView) findViewById( R.id.averageValue    );
+        TextView ny = (TextView) findViewById( R.id.numYesValue     );
+        TextView nn = (TextView) findViewById( R.id.numNoValue      );
+        TextView nc = (TextView) findViewById( R.id.correctNumValue );
+        av.setText(Float.valueOf(PERCENT_CORRECT).toString());
+        ny.setText(Integer.valueOf(NUM_YES).toString());
+        nn.setText(Integer.valueOf(NUM_NO).toString());
+        nc.setText(Integer.valueOf(NUM_CORRECT).toString());
     }
 
     public void onClick(View v) {
@@ -576,7 +731,7 @@ public class GameMode extends Activity implements View.OnClickListener{
                     "Jupiter is Roman equivalent of Greek mythology's king of the gods, Zues", true
             );
             SampleQuestion q14 = new SampleQuestion(
-                    "The average lifespan for women is larger than of men", false
+                    "The average lifespan for women is larger than of men", true
             );
             SampleQuestion q15 = new SampleQuestion(
                     "Git is a centralized Version Control System used widely across the Software Engineering industry", false
