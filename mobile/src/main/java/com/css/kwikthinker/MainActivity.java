@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.net.Uri;
 
 import com.css.kwikthinker.util.SystemUiHider;
 
@@ -121,6 +122,13 @@ public class MainActivity extends Activity {
     private void delayedHide(int delayMillis) {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
+    }
+
+    public void doTheThingThatInvolvesOpeningTheWebBrowserToTheGithubPageUponHittingTheButtonInTheMainActivity(View view) {
+        // note: can also open in the GitHub app if your OS is configured to do so / you have the GH app installed
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+                Uri.parse("https://github.com/chrissprague/KwikThinker"));
+        startActivity(browserIntent);
     }
 
     public void startEndlessMode(View view) {
