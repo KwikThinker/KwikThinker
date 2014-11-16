@@ -1,5 +1,6 @@
 package com.grc.data.bluemix;
 
+import com.grc.models.Question;
 import com.ibm.mobile.services.data.IBMDataObject;
 import com.ibm.mobile.services.data.IBMDataObjectSpecialization;
 
@@ -14,7 +15,6 @@ public class BluemixQuestionDataItem extends IBMDataObject {
     private static final String TEXT = "text";
     private static final String ID = "uuid";
     private static final String ANSWERS = "answers";
-    private static final String PERCENTAGES = "percentages";
 
     public String getText(){
         return (String)getObject(TEXT);
@@ -22,7 +22,7 @@ public class BluemixQuestionDataItem extends IBMDataObject {
 
     public void setText(String text){
         if(text == null || text.equals("")){
-            // we don't want null UUIDs.
+            // we don't want null or empty questions.
             throw new IllegalArgumentException("text cannot be null or empty.");
         }
         setObject(TEXT, (text != null) ? text : "");
@@ -52,16 +52,31 @@ public class BluemixQuestionDataItem extends IBMDataObject {
         setObject(ANSWERS, answers);
     }
 
-    public String[] getPercentages(){
-        return (String[])getObject(PERCENTAGES);
+    /**
+     * Converts the BluemixQuestionDataItem into a Question object.
+     * @return
+     */
+    public Question toQuestion(){
+        Question q = new Question();
+        q.setAnswers(getAnswers());
+        q.setText(getText());
+        q.setUuid(getUuid());
+
+        return q;
     }
 
-    public void setPercentages(String[] percentages){
-        if(percentages == null || percentages.length != 2){
-            // we don't want null UUIDs.
-            throw new IllegalArgumentException("percentages must not be null and must have length 2.");
-        }
-        setObject(PERCENTAGES, percentages);
+    /**
+     * Creates a BluemixQuestionDataItem from a Question object.
+     * @param q
+     * @return
+     */
+    public static BluemixQuestionDataItem fromQuestion(Question q){
+        BluemixQuestionDataItem item = new BluemixQuestionDataItem();
+        item.setAnswers(q.getAnswers());
+        item.setText(q.getText());
+        item.setUuid(q.getUuid());
+
+        return item;
     }
 
 }
