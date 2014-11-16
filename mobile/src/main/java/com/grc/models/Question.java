@@ -15,7 +15,7 @@ public class Question {
     /**
      * Unique identifier associated with the question.
      */
-    private UUID _uuid;
+    private String _uuid;
 
     /**
      * Two answers to the question.
@@ -23,10 +23,9 @@ public class Question {
     private String[] _answers;
 
     /**
-     * Distribution of answers. _percentages[0] represents the number of people that chose
-     * _answers[0], and so on.
+     * Index of the correct answer.
      */
-    private double[] _percentages;
+    private int _correctIndex;
 
     public String getText() {
         return _text;
@@ -36,11 +35,11 @@ public class Question {
         this._text = _text;
     }
 
-    public UUID getUuid() {
+    public String getUuid() {
         return _uuid;
     }
 
-    public void setUuid(UUID _uuid) {
+    public void setUuid(String _uuid) {
         this._uuid = _uuid;
     }
 
@@ -50,5 +49,13 @@ public class Question {
 
     public void setAnswers(String[] _answers) {
         this._answers = _answers;
+    }
+
+    public int getCorrectIndex(){
+        return _correctIndex;
+    }
+
+    public void setCorrectIndex(int correctIndex){
+        _correctIndex = correctIndex;
     }
 }

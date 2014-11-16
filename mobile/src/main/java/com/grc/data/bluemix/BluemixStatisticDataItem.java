@@ -12,14 +12,18 @@ import java.util.UUID;
 @IBMDataObjectSpecialization("BluemixStatisticDataItem")
 public class BluemixStatisticDataItem extends IBMDataObject {
 
+    public BluemixStatisticDataItem(){
+        super();
+    }
+
     private static final String ID = "uuid";
     private static final String NUMBER_OF_ANSWERS = "numberOfAnswers";
 
-    public UUID getId(){
-        return (UUID)getObject(ID);
+    public String getId(){
+        return (String)getObject(ID);
     }
 
-    public void setId(UUID id){
+    public void setId(String id){
         setObject(ID, id);
     }
 

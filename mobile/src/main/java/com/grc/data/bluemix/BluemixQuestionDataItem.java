@@ -12,9 +12,14 @@ import java.util.UUID;
 @IBMDataObjectSpecialization("BluemixQuestionDataItem")
 public class BluemixQuestionDataItem extends IBMDataObject {
 
+    public BluemixQuestionDataItem(){
+        super();
+    }
+
     private static final String TEXT = "text";
     private static final String ID = "uuid";
     private static final String ANSWERS = "answers";
+    private static final String CORRECT_INDEX = "correct_index";
 
     public String getText(){
         return (String)getObject(TEXT);
@@ -28,11 +33,11 @@ public class BluemixQuestionDataItem extends IBMDataObject {
         setObject(TEXT, (text != null) ? text : "");
     }
 
-    public UUID getUuid(){
-        return (UUID)getObject(ID);
+    public String getUuid(){
+        return (String)getObject(ID);
     }
 
-    public void setUuid(UUID id){
+    public void setUuid(String id){
         if(id == null){
             // we don't want null UUIDs.
             throw new IllegalArgumentException("UUID cannot be null.");
@@ -52,6 +57,17 @@ public class BluemixQuestionDataItem extends IBMDataObject {
         setObject(ANSWERS, answers);
     }
 
+    public int getCorrectIndex(){
+        return (Integer)getObject(CORRECT_INDEX);
+    }
+
+    public void setCorrectIndex(int correctIndex){
+        if(correctIndex != 0 && correctIndex != 1){
+            throw new IllegalArgumentException("correctIndex must be 0 or 1.");
+        }
+        setObject(CORRECT_INDEX, correctIndex);
+    }
+
     /**
      * Converts the BluemixQuestionDataItem into a Question object.
      * @return
@@ -61,6 +77,7 @@ public class BluemixQuestionDataItem extends IBMDataObject {
         q.setAnswers(getAnswers());
         q.setText(getText());
         q.setUuid(getUuid());
+        q.setCorrectIndex(getCorrectIndex());
 
         return q;
     }
@@ -75,6 +92,7 @@ public class BluemixQuestionDataItem extends IBMDataObject {
         item.setAnswers(q.getAnswers());
         item.setText(q.getText());
         item.setUuid(q.getUuid());
+        item.setCorrectIndex(q.getCorrectIndex());
 
         return item;
     }
