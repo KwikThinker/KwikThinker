@@ -7,4 +7,6 @@
     <string name="start_game_mode_button_text">Start Endless Mode</string>
     <string name="endless_mode_countdown">5</string>
     <string name="EM_START_BUTT_TEXT">Start!</string>
+    <string name="play_again">Play Again?</string>
+
 </resources>
