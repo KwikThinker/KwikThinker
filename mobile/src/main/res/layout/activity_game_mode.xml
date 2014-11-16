@@ -60,4 +60,13 @@
         android:id="@+id/imageView"
         android:layout_gravity="center_horizontal|bottom" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/play_again"
+        android:id="@+id/playAgainButton"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="100dp"
+        android:onClick="onStartClick"/>
+
 </FrameLayout>

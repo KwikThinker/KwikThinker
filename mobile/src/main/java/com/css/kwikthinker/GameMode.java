@@ -14,7 +14,6 @@ import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -30,6 +29,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -66,7 +66,7 @@ public class GameMode extends Activity implements View.OnClickListener{
 
     ProgressBar countdownProgressBar;
     TextView countdownTV;
-    Button startButton;
+    Button startButton, playAgainButton;
     // im british... and pissed!
     private static final int[] COLOURS = {
         Color.RED,
@@ -87,7 +87,9 @@ public class GameMode extends Activity implements View.OnClickListener{
     // user input gets locked once they've answered once
     private static boolean inputLockedOnResponse = false;
 
-    private final ArrayList<SampleQuestion> QUESTIONS =
+    private boolean correctAnswer;
+
+    private ArrayList<SampleQuestion> QUESTIONS =
             (new SampleQuestionProvider()).getSampleQuestions();
 
     private Long JON_SKEETS_REPUTATION;
@@ -167,6 +169,8 @@ public class GameMode extends Activity implements View.OnClickListener{
                 LayoutParams.WRAP_CONTENT,
                 0.75f));); // TODO take up 75% of parent width - can't do in XML */
         startButton = (Button)findViewById(R.id.start_em_countdown);
+        playAgainButton = (Button)findViewById(R.id.playAgainButton);
+        playAgainButton.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -180,14 +184,17 @@ public class GameMode extends Activity implements View.OnClickListener{
     }
 
     public void onStartClick(View view) {
-        countdownProgressBar.setVisibility(View.VISIBLE);
+
+        countdownTV.setTextSize(250);
+
         countdownProgressBar.setProgress(5000);
-        ViewGroup v = (ViewGroup)startButton.getParent();
-        v.removeView(startButton);
+        startButton.setVisibility(View.INVISIBLE);
+        playAgainButton.setVisibility(View.INVISIBLE);
         CountDownTimer cdt = new CountDownTimer(5000, 10) {
 
             @Override
             public void onFinish() {
+                countdownProgressBar.setVisibility(View.VISIBLE);
                 spawnQuestion();
             }
 
@@ -213,8 +220,11 @@ public class GameMode extends Activity implements View.OnClickListener{
         //      background color
         //      question
 
+
+
         countdownProgressBar.setProgress(5000); // reset progress bar
         inputLockedOnResponse = false; // reset input lock for answering
+
 
         countdownTV.setTextColor(countdownTV.getTextColors().withAlpha(255));
         int colour = (int) Math.floor(Math.random() * 7); // im british... and pissed!
@@ -225,11 +235,23 @@ public class GameMode extends Activity implements View.OnClickListener{
         layout.setBackgroundColor(COLOURS[colour]);
         countdownTV.setTextSize(40);
         countdownTV.setTextColor(Color.BLACK);
+
         // TODO k-v pairs: (Question : boolean answer)
         // TODO k-v pairs: (QuestionString, TextSize)
         // TODO the above solution: great for hackathon, terrible for the long run
-        countdownTV.setText("Abe Washington was the first President of the United States");
 
+        if ( QUESTIONS.size() == 0 ) {
+            countdownTV.setText("All available questions have been exhausted. Thanks for playing :)");
+            playAgainButton.setVisibility(View.VISIBLE);
+            QUESTIONS =
+                    (new SampleQuestionProvider()).getSampleQuestions();
+            return;
+        }
+
+        int questionNumber = (new Random()).nextInt((QUESTIONS.size()));
+        countdownTV.setText(QUESTIONS.get(questionNumber).QUESTION_STRING);
+        correctAnswer = QUESTIONS.get(questionNumber).ANSWER;
+        QUESTIONS.remove(questionNumber);
 
         CountDownTimer cdt = new CountDownTimer(5000, 10) {
             public void onTick(long ms) {
@@ -539,10 +561,10 @@ public class GameMode extends Activity implements View.OnClickListener{
                     "Google's Nexus 6 was released in late 2013", false
             );
             SampleQuestion q9 = new SampleQuestion(
-                    "( ( ( T && !F ) || ( F && T ) ) && T )", true
+                    "( ( T && !F ) || ( F && T ) )", true
             );
             SampleQuestion q10 = new SampleQuestion(
-                    "1536, Christopher Columbus crossed the River Styx", false
+                    "1436, Christopher Columbus crossed the River Styx", false
             );
             SampleQuestion q11 = new SampleQuestion(
                     "Harvey Milk was the first openly gay person elected into California public office", true
