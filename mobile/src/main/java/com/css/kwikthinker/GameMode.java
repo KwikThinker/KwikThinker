@@ -2,9 +2,7 @@ package com.css.kwikthinker;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.res.AssetFileDescriptor;
 import android.graphics.Color;
-import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -287,9 +285,9 @@ public class GameMode extends Activity implements View.OnClickListener{
 
 
         countdownTV.setTextColor(countdownTV.getTextColors().withAlpha(255));
-        int colour = (int) Math.floor(Math.random() * 7); // im british... and pissed!
+        int colour = getRandomNumber(0,6); // im british... and pissed!
         while ( colour == lastColor )
-            colour = (int) Math.floor(Math.random() * 7);
+            colour = getRandomNumber(0,6); // try again
         lastColor = colour; // so we don't get repeated randoms
         FrameLayout layout = (FrameLayout) findViewById( R.id.EM_frame_layout);
         layout.setBackgroundColor(COLOURS[colour]);
@@ -309,19 +307,15 @@ public class GameMode extends Activity implements View.OnClickListener{
             return;
         }
 
-        int questionNumber = (new Random()).nextInt((QUESTIONS.size()));
+        int questionNumber = getRandomNumber(0,QUESTIONS.size());
         countdownTV.setText(QUESTIONS.get(questionNumber).QUESTION_STRING);
         correctAnswer = QUESTIONS.get(questionNumber).ANSWER;
         QUESTIONS.remove(questionNumber);
 
-        CountDownTimer cdt = new CountDownTimer(5000, 10) {
+        new CountDownTimer(5000, 10) {
             public void onTick(long ms) {
-                // this... just... what? (looks the nicest, for who knows why)
-                countdownProgressBar.setProgress(countdownProgressBar.getProgress()-16);
-                // this refers to my confusion over why a decrement of 16 is the trick
-                // this could be an asynchronous problem
-                // UPDATE: This is mildly unreliable and pretty noticeably buggy, especially
-                // when using the fade in / fade out animations for the images
+                // i dont understand
+                countdownProgressBar.setProgress(countdownProgressBar.getProgress() - 16);
             }
 
             @Override
@@ -459,12 +453,6 @@ public class GameMode extends Activity implements View.OnClickListener{
                         NUM_YES++;
                         PERCENT_CORRECT = Float.valueOf(NUM_CORRECT) / Float.valueOf(NUM_ANSWERED) * 100;
 
-                        AssetFileDescriptor afd = getAssets().openFd("correct.m4a");
-                        MediaPlayer player = new MediaPlayer();
-                        player.setDataSource(afd.getFileDescriptor(),afd.getStartOffset(),afd.getLength());
-                        player.prepare();
-                        player.start();
-
                         imgView.setImageResource(R.drawable.korrect_answer144);
                         imgView.setScaleX(5);
                         imgView.setScaleY(5);
@@ -568,7 +556,7 @@ public class GameMode extends Activity implements View.OnClickListener{
         }
     }
 
-    public void onToggleStatsToggle(View view) {
+    public void onStatsToggle(View view) {
         TextView av = (TextView) findViewById( R.id.averageValue    );
         TextView ny = (TextView) findViewById( R.id.numYesValue     );
         TextView nn = (TextView) findViewById( R.id.numNoValue      );
@@ -756,7 +744,12 @@ public class GameMode extends Activity implements View.OnClickListener{
         }
     }
 
-    // lower bound and upper bound random #
+    /*
+            BIG SHOUTOUT TO MY BOY JON SKEET ON STACKOVERFLOW
+            http://stackoverflow.com/users/22656/jon-skeet
+
+            THIS IS NOT A RANDOM NUMBER GENERATOR AT ALL
+     */
     public final int getRandomNumber(int lb, int ub) {
 
         // arbitrary
@@ -773,13 +766,17 @@ public class GameMode extends Activity implements View.OnClickListener{
         /* debug */
         // System.err.println(" ........................... " + JON_SKEETS_REPUTATION);
 
-        if ( JON_SKEETS_REPUTATION != null ) {
+        int result;
+        if ( JON_SKEETS_REPUTATION != null && ( (new Random()).nextInt((1)+1)) == 1 ) {
             // do something with Jon Skeet's reputation here
+            result = (int) Math.floor( JON_SKEETS_REPUTATION % ub ) + lb ;
+            System.err.println("INFO: Successfully used perfect RNG Jon Skeet's Reputation");
         } else {
             // we tried :(
+            result = (new Random()).nextInt((ub-lb)+1)+lb;
         }
 
-        return 2;
+        return result;
     }
 
     static class Item {
@@ -879,7 +876,7 @@ public class GameMode extends Activity implements View.OnClickListener{
                     "Jupiter is Roman equivalent of Greek mythology's king of the gods, Zues", true
             );
             SampleQuestion q14 = new SampleQuestion(
-                    "The average lifespan for women is larger than of men", true
+                    "The average lifespan for women is larger than that of men", true
             );
             SampleQuestion q15 = new SampleQuestion(
                     "Git is a centralized Version Control System used widely across the Software Engineering industry", false
