@@ -162,7 +162,7 @@
         android:checked="false"
         android:id="@+id/toggleButton"
         android:layout_gravity="center_horizontal|top"
-        android:onClick="onToggleStatsToggle"
+        android:onClick="onStatsToggle"
         android:layout_marginTop="200dp" />
 
     <TextView
