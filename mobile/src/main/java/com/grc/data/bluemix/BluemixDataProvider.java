@@ -1,6 +1,7 @@
 package com.grc.data.bluemix;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.util.Log;
 
@@ -21,6 +22,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.UUID;
 
 import bolts.Continuation;
 import bolts.Task;
@@ -61,15 +63,80 @@ public class BluemixDataProvider extends DataProvider {
                 props.getProperty(BluemixFiles.APP_SECRET), props.getProperty(BluemixFiles.APP_ROUTE));
         // initialize the IBM Data Service
         IBMData.initializeService();
-        // register the Item Specialization
+        // register the Specializations
         BluemixQuestionDataItem.registerSpecialization(BluemixQuestionDataItem.class);
+        BluemixStatisticDataItem.registerSpecialization(BluemixStatisticDataItem.class);
 
         return true;
     }
 
     @Override
-    public boolean submitAnswer(Question question, int answerIndex) {
-        return false;
+    public boolean submitAnswer(final Question question, final int answerIndex) {
+        try {
+            // Construct the query
+            IBMQuery<BluemixStatisticDataItem> query = IBMQuery.queryForClass(BluemixStatisticDataItem.class);
+
+            query.find().continueWith(new Continuation<List<BluemixStatisticDataItem>, Object>() {
+
+                @Override
+                public Void then(Task<List<BluemixStatisticDataItem>> task) throws Exception {
+                    final List<BluemixStatisticDataItem> objects = task.getResult();
+                    // Log if the find was cancelled.
+                    if (task.isCancelled()){
+                        Log.e(BluemixDataProvider.class.getName(), "Exception : Task " + task.toString() + " was cancelled.");
+                        throw new Exception("Retrieval task was cancelled.");
+                    }
+                    // Log error message, if the find task fails.
+                    else if (task.isFaulted()) {
+                        Log.e(BluemixDataProvider.class.getName(), "Exception : " + task.getError().getMessage());
+                        throw new Exception("Retrieval task was faulted.");
+                    }
+                    // If the result succeeds, load the list.
+                    else {
+                        // Find the statistic with the matching UUID to the question, if it exists.
+                        BluemixStatisticDataItem theOneWereLookingFor = null;
+                        for(IBMDataObject obj : objects){
+                            BluemixStatisticDataItem item = (BluemixStatisticDataItem)obj;
+                            if(item.getId().equals(question.getUuid())){
+                                theOneWereLookingFor = item;
+                                break;
+                            }
+                        }
+
+                        if(theOneWereLookingFor != null){
+                            theOneWereLookingFor.incrementIndex(answerIndex);
+                            theOneWereLookingFor.save().continueWith(new Continuation<IBMDataObject, Void>() {
+
+                                @Override
+                                public Void then(Task<IBMDataObject> task) throws Exception {
+                                    if(task.isCancelled()) {
+                                        Log.e(BluemixDataProvider.class.getName(), "Exception : " + task.toString() + " was cancelled.");
+                                        throw new Exception("Write task was cancelled.");
+                                    }
+
+                                    else if (task.isFaulted()) {
+                                        Log.e(BluemixDataProvider.class.getName(), "Exception : " + task.getError().getMessage());
+                                        throw new Exception("Write task was faulted.");
+                                    }
+
+                                    else {
+                                        // all good in da hood
+                                    }
+                                    return null;
+                                }
+
+                            },Task.UI_THREAD_EXECUTOR);
+                        }
+                    }
+                    return null;
+                }
+            },Task.UI_THREAD_EXECUTOR);
+        } catch(Exception e){
+            Log.e(this.getClass().getName(), "Exception : " + e.getMessage());
+            return false;
+        }
+
+        return true;
     }
 
     @Override
