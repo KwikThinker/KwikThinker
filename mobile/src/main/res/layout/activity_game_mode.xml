@@ -46,4 +46,14 @@
         android:layout_marginTop="150dp"
         android:onClick="onStartClick"/>
 
+    <ProgressBar
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:indeterminate="false"
+        android:indeterminateOnly="false"
+        android:layout_height="75dp"
+        android:id="@+id/progressBar"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="50dp" />
+
 </FrameLayout>

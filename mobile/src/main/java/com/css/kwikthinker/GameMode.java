@@ -2,6 +2,7 @@ package com.css.kwikthinker;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -13,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.css.kwikthinker.util.SystemUiHider;
 
@@ -47,8 +50,18 @@ public class GameMode extends Activity {
      */
     private SystemUiHider mSystemUiHider;
 
+    ProgressBar countdownProgressBar;
     TextView countdownTV;
     Button startButton;
+    // im british... and pissed!
+    private static final int[] COLOURS = {
+        Color.RED,
+        Color.GREEN,
+        Color.BLUE,
+        Color.MAGENTA,
+        Color.CYAN,
+        Color.YELLOW,
+        Color.WHITE };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +113,11 @@ public class GameMode extends Activity {
                         }
                     }
                 });
+        countdownProgressBar = (ProgressBar)findViewById(R.id.progressBar);
+        countdownProgressBar.setVisibility(View.INVISIBLE);
+        countdownProgressBar.setMax(5000); // TODO GLOBAL CONST
+        countdownProgressBar.setProgress(5000);
+
         countdownTV = (TextView)findViewById(R.id.countdownTV);
         /*countdownTV.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
                 LayoutParams.WRAP_CONTENT,
@@ -117,15 +135,16 @@ public class GameMode extends Activity {
         delayedHide(100);
     }
 
-    public void onStartClick(View view)
-    {
+    public void onStartClick(View view) {
+        countdownProgressBar.setVisibility(View.VISIBLE);
+        countdownProgressBar.setProgress(5000);
         ViewGroup v = (ViewGroup)startButton.getParent();
         v.removeView(startButton);
-        CountDownTimer cdt = new CountDownTimer(5200, 1000) {
+        CountDownTimer cdt = new CountDownTimer(5000, 10) {
             public void onTick(long ms) {
                 long s = ms / NUM_SECONDS_PER_MILLISECOND ;
                 int a = (int)( ( s / 5.0 ) * 255 ); // TODO global consts
-                if ( ms < 500 ) {
+                if ( ms < 50 ) {
                     countdownTV.setText("");
                     return;
                 }
@@ -135,15 +154,44 @@ public class GameMode extends Activity {
 
             @Override
             public void onFinish() {
-                countdownTV.setTextColor(countdownTV.getTextColors().withAlpha(255));
-                countdownTV.setTextSize(40);
-                // TODO k-v pairs: (QuestionString, TextSize)
-                // TODO the above solution: great for hackathon, terrible for the long run
-                countdownTV.setText("Abe Washington was the first President of the United States");
+                spawnQuestion();
             }
         };
         // do countdown
         cdt.start();
+    }
+
+    private void spawnQuestion() {
+        // TODO RANDOM SEEDS
+        //      background color
+        //      question
+
+        countdownProgressBar.setProgress(5000);
+
+        countdownTV.setTextColor(countdownTV.getTextColors().withAlpha(255));
+        int colour = (int) Math.floor(Math.random() * 7); // im british... and pissed!
+        FrameLayout layout = (FrameLayout) findViewById( R.id.EM_frame_layout);
+        layout.setBackgroundColor(COLOURS[colour]);
+        countdownTV.setTextSize(40);
+        countdownTV.setTextColor(Color.BLACK);
+        // TODO k-v pairs: (Question : boolean answer)
+        // TODO k-v pairs: (QuestionString, TextSize)
+        // TODO the above solution: great for hackathon, terrible for the long run
+        countdownTV.setText("Abe Washington was the first President of the United States");
+
+
+        CountDownTimer cdt = new CountDownTimer(5000, 10) {
+            public void onTick(long ms) {
+                countdownProgressBar.setProgress(countdownProgressBar.getProgress()-16);
+            }
+
+            @Override
+            public void onFinish() {
+                spawnQuestion();
+            }
+        }.start();
+
+
     }
 
     @Override
