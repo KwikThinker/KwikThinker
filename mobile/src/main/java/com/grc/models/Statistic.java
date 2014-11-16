@@ -10,18 +10,18 @@ public class Statistic {
     /**
      * Unique identifier of the question this is related to.
      */
-    private UUID _uuid;
+    private String _uuid;
 
     /**
      * Number of times each answer was chosen by a user.
      */
     private Integer[] _numberOfAnswers;
 
-    public UUID getUuid(){
+    public String getUuid(){
         return _uuid;
     }
 
-    public void setUuid(UUID uuid){
+    public void setUuid(String uuid){
         _uuid = uuid;
     }
 

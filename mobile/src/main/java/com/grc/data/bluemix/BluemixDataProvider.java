@@ -46,21 +46,26 @@ public class BluemixDataProvider extends DataProvider {
      */
     private boolean initialize(Activity activity){
         // Read from properties file
-        Properties props = new java.util.Properties();
-        try {
-            AssetManager assetManager = activity.getApplicationContext().getAssets();
-            props.load(assetManager.open(BluemixFiles.APP_PROPS.toString()));
-            Log.i(this.getClass().getName(), "Found configuration file: " + BluemixFiles.APP_PROPS);
-        } catch (FileNotFoundException e) {
-            Log.e(this.getClass().getName(), "The bluelist.properties file was not found.", e);
-            return false;
-        } catch (IOException e) {
-            Log.e(this.getClass().getName(), "The bluelist.properties file could not be read properly.", e);
-            return false;
-        }
+//        Properties props = new java.util.Properties();
+//        try {
+//            AssetManager assetManager = activity.getApplicationContext().getAssets();
+//            for(String s : assetManager.list("")){
+//                Log.i("asdf", s);
+//            }
+//            props.load(assetManager.open(BluemixFiles.APP_PROPS));
+//            Log.i(this.getClass().getName(), "Found configuration file: " + BluemixFiles.APP_PROPS);
+//        } catch (FileNotFoundException e) {
+//            Log.e(this.getClass().getName(), "The bluelist.properties file was not found.", e);
+//            return false;
+//        } catch (IOException e) {
+//            Log.e(this.getClass().getName(), "The bluelist.properties file could not be read properly.", e);
+//            return false;
+//        }
         // initialize the IBM core backend-as-a-service
-        IBMBluemix.initialize(activity, props.getProperty(BluemixFiles.APP_ID),
-                props.getProperty(BluemixFiles.APP_SECRET), props.getProperty(BluemixFiles.APP_ROUTE));
+//        IBMBluemix.initialize(activity, props.getProperty(BluemixFiles.APP_ID),
+//                props.getProperty(BluemixFiles.APP_SECRET), props.getProperty(BluemixFiles.APP_ROUTE));
+        IBMBluemix.initialize(activity, "0e43df4d-02d8-420b-b19e-797e107bea4d",
+                "74df69344a24a83fac3468b49bad8e115532ac08", "http://kwikthinker.mybluemix.net/");
         // initialize the IBM Data Service
         IBMData.initializeService();
         // register the Specializations
