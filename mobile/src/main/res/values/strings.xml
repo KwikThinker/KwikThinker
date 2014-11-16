@@ -3,8 +3,12 @@
 
     <string name="app_name">Kwik Thinker</string>
     <string name="ma_title_text">KWIK THINKER</string>
+    <string name="percent_correct">% correct</string>
+    <string name="numYes"># "Yes"</string>
+    <string name="numNo"># "No"</string>
+    <string name="numCorrect"># correct</string>
     <string name="title_activity_game_mode">KT Endless Mode</string>
-    <string name="start_game_mode_button_text">Start Endless Mode</string>
+    <string name="start_game_mode_button_text">Enter Endless Mode</string>
     <string name="endless_mode_countdown">5</string>
     <string name="EM_START_BUTT_TEXT">Start!</string>
     <string name="play_again">Play Again?</string>
