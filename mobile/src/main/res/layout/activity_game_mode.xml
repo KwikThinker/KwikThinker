@@ -159,7 +159,7 @@
     <ToggleButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:checked="true"
+        android:checked="false"
         android:id="@+id/toggleButton"
         android:layout_gravity="center_horizontal|top"
         android:onClick="onToggleStatsToggle"
@@ -174,5 +174,25 @@
         android:id="@+id/textView10"
         android:layout_gravity="center_horizontal|top"
         android:layout_marginTop="180dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/noSwipeRight"
+        android:src="@drawable/no_swipe_right500"
+        android:layout_gravity="left|bottom"
+        android:layout_marginBottom="25dp"
+        android:layout_marginLeft="10dp"
+        android:onClick="simulateSwipeRight"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/yesSwipeLeft"
+        android:src="@drawable/yes_swipe_left500"
+        android:layout_gravity="right|bottom"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="25dp"
+        android:onClick="simulateSwipeLeft"/>
 
 </FrameLayout>

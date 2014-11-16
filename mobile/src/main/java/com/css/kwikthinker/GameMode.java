@@ -73,11 +73,11 @@ public class GameMode extends Activity implements View.OnClickListener{
     Button startButton, playAgainButton;
     // im british... and pissed!
     private static final int[] COLOURS = {
-        Color.RED,
-        Color.GREEN,
-        Color.BLUE,
+        Color.argb(204, 120, 174, 255),
+        Color.argb(204, 92, 102, 99),
+        Color.argb(204, 120, 255, 210),
         Color.MAGENTA,
-        Color.CYAN,
+        Color.argb(204, 255, 120, 208),
         Color.YELLOW,
         Color.WHITE };
     private static int lastColor = Color.BLUE;
@@ -181,6 +181,39 @@ public class GameMode extends Activity implements View.OnClickListener{
         startButton = (Button)findViewById(R.id.start_em_countdown);
         playAgainButton = (Button)findViewById(R.id.playAgainButton);
         playAgainButton.setVisibility(View.INVISIBLE);
+
+        TextView av = (TextView) findViewById( R.id.averageValue    );
+        TextView ny = (TextView) findViewById( R.id.numYesValue     );
+        TextView nn = (TextView) findViewById( R.id.numNoValue      );
+        TextView nc = (TextView) findViewById( R.id.correctNumValue );
+
+        TextView avl = (TextView) findViewById( R.id.averageLabel    );
+        TextView nyl = (TextView) findViewById( R.id.numYesLabel     );
+        TextView nnl = (TextView) findViewById( R.id.numNoLabel      );
+        TextView ncl = (TextView) findViewById( R.id.numCorrectLabel );
+
+        ToggleButton tb = (ToggleButton)findViewById(R.id.toggleButton);
+
+        if ( tb.isChecked() ) {
+            av.setVisibility(View.VISIBLE);
+            ny.setVisibility(View.VISIBLE);
+            nn.setVisibility(View.VISIBLE);
+            nc.setVisibility(View.VISIBLE);
+            avl.setVisibility(View.VISIBLE);
+            nyl.setVisibility(View.VISIBLE);
+            nnl.setVisibility(View.VISIBLE);
+            ncl.setVisibility(View.VISIBLE);
+        } else {
+            av.setVisibility(View.INVISIBLE);
+            ny.setVisibility(View.INVISIBLE);
+            nn.setVisibility(View.INVISIBLE);
+            nc.setVisibility(View.INVISIBLE);
+            avl.setVisibility(View.INVISIBLE);
+            nyl.setVisibility(View.INVISIBLE);
+            nnl.setVisibility(View.INVISIBLE);
+            ncl.setVisibility(View.INVISIBLE);
+        }
+
     }
 
     @Override
@@ -297,6 +330,110 @@ public class GameMode extends Activity implements View.OnClickListener{
 
     }
 
+    public void simulateSwipeRight ( View view ) {
+
+        ImageView imgView = (ImageView)findViewById(R.id.answerFeedbackImageView);
+
+        if ( ! correctAnswer && ! inputLockedOnResponse ) {
+
+            NUM_ANSWERED++;
+            NUM_CORRECT++;
+            NUM_NO++;
+            PERCENT_CORRECT = Float.valueOf(NUM_CORRECT) / Float.valueOf(NUM_ANSWERED) * 100;
+
+            imgView.setImageResource(R.drawable.korrect_answer144);
+            imgView.setScaleX(5);
+            imgView.setScaleY(5);
+
+            imgView.setVisibility(View.VISIBLE);
+            AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
+            anim.setDuration(750);
+            anim.setRepeatCount(1);
+            anim.setRepeatMode(Animation.REVERSE);
+            imgView.startAnimation(anim);
+            imgView.setVisibility(View.INVISIBLE);
+
+            updateStatsTextViews();
+
+        } else if ( ! inputLockedOnResponse ) {
+
+            NUM_ANSWERED++;
+            NUM_NO++;
+            PERCENT_CORRECT = Float.valueOf(NUM_CORRECT) / Float.valueOf(NUM_ANSWERED) * 100;
+
+            imgView.setImageResource(R.drawable.krong_answer144);
+            imgView.setScaleX(5);
+            imgView.setScaleY(5);
+
+            imgView.setVisibility(View.VISIBLE);
+            AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
+            anim.setDuration(750);
+            anim.setRepeatCount(1);
+            anim.setRepeatMode(Animation.REVERSE);
+            imgView.startAnimation(anim);
+            imgView.setVisibility(View.INVISIBLE);
+
+            updateStatsTextViews();
+
+        }
+        inputLockedOnResponse = true;
+        // RIGHT SWIPE
+        // ANSWER "YES"
+        // LOCK INPUT UNTIL NEW QUESTION IS SPAWNED
+    }
+
+    public void simulateSwipeLeft(View view ) {
+
+        ImageView imgView = (ImageView)findViewById(R.id.answerFeedbackImageView);
+
+        if ( correctAnswer && ! inputLockedOnResponse ) {
+
+            NUM_ANSWERED++;
+            NUM_CORRECT++;
+            NUM_YES++;
+            PERCENT_CORRECT = Float.valueOf(NUM_CORRECT) / Float.valueOf(NUM_ANSWERED) * 100;
+
+            imgView.setImageResource(R.drawable.korrect_answer144);
+            imgView.setScaleX(5);
+            imgView.setScaleY(5);
+
+            imgView.setVisibility(View.VISIBLE);
+            AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
+            anim.setDuration(750);
+            anim.setRepeatCount(1);
+            anim.setRepeatMode(Animation.REVERSE);
+            imgView.startAnimation(anim);
+            imgView.setVisibility(View.INVISIBLE);
+
+            updateStatsTextViews();
+
+        } else if ( ! inputLockedOnResponse ) {
+
+            NUM_ANSWERED++;
+            NUM_NO++;
+            PERCENT_CORRECT = Float.valueOf(NUM_CORRECT) / Float.valueOf(NUM_ANSWERED) * 100;
+
+            imgView.setImageResource(R.drawable.krong_answer144);
+            imgView.setScaleX(5);
+            imgView.setScaleY(5);
+
+            imgView.setVisibility(View.VISIBLE);
+            AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
+            anim.setDuration(750);
+            anim.setRepeatCount(1);
+            anim.setRepeatMode(Animation.REVERSE);
+            imgView.startAnimation(anim);
+            imgView.setVisibility(View.INVISIBLE);
+
+            updateStatsTextViews();
+
+        }
+        inputLockedOnResponse = true;
+        // LEFT SWIPE
+        // ANSWER "NO"
+        // LOCK INPUT UNTIL NEW QUESTION IS SPAWNED
+    }
+
     /**
      * Gesture detector detects left/right swipes.
      */
@@ -358,7 +495,7 @@ public class GameMode extends Activity implements View.OnClickListener{
                     inputLockedOnResponse = true;
                     // LEFT SWIPE
                     // ANSWER "NO"
-                    // LOCK INPUT UNTIL NEW QUESTION IS SPAWNEDiiu
+                    // LOCK INPUT UNTIL NEW QUESTION IS SPAWNED
 
 
                 }  else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
@@ -752,7 +889,7 @@ public class GameMode extends Activity implements View.OnClickListener{
                     "Seal is the mastermind behind the touching piece entitled \"Kiss from a Rose\"", true
             );
             SampleQuestion q20 = new SampleQuestion(
-                    "The song \"Kiss from a Rose\" was actually part of a soundtrack for a Spiderman movie", true
+                    "The song \"Kiss from a Rose\" was actually part of a soundtrack for a Spiderman movie", false
             );
 
             SAMPLE_QUESTIONS.add(q1);
