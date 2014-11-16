@@ -59,4 +59,5 @@ public class Question {
     public void setPercentages(double[] _percentages) {
         this._percentages = _percentages;
     }
+
 }
