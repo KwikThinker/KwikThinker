@@ -12,5 +12,8 @@
     <string name="endless_mode_countdown">5</string>
     <string name="EM_START_BUTT_TEXT">Start!</string>
     <string name="play_again">Play Again?</string>
+    <string name="title_activity_tutorial">Tutorial</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 
 </resources>
