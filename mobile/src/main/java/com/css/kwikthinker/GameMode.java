@@ -773,7 +773,7 @@ public class GameMode extends Activity implements View.OnClickListener{
             System.err.println("INFO: Successfully used perfect RNG Jon Skeet's Reputation");
         } else {
             // we tried :(
-            result = (new Random()).nextInt((ub-lb)+1)+lb;
+            result = (new Random()).nextInt((ub-lb))+lb;
         }
 
         return result;
@@ -876,7 +876,7 @@ public class GameMode extends Activity implements View.OnClickListener{
                     "Jupiter is Roman equivalent of Greek mythology's king of the gods, Zues", true
             );
             SampleQuestion q14 = new SampleQuestion(
-                    "The average lifespan for women is larger than that of men", true
+                    "The average lifespan for women is larger than those of men", true
             );
             SampleQuestion q15 = new SampleQuestion(
                     "Git is a centralized Version Control System used widely across the Software Engineering industry", false
