@@ -14,15 +14,17 @@
         android:keepScreenOn="true"
         android:textColor="#FFFFCC"
         android:textStyle="bold"
-        android:textSize="50sp"
+        android:textSize="110sp"
         android:gravity="center"
-        android:text="@string/ma_title_text" />
+        android:text="@string/ma_title_text"
+        android:layout_marginBottom="150dp" />
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
     <FrameLayout android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        android:layout_gravity="center">
 
         <LinearLayout android:id="@+id/fullscreen_content_controls"
             android:layout_width="match_parent"
@@ -41,6 +43,16 @@
             android:layout_gravity="center|bottom"
             android:layout_marginBottom="150dp"
             android:onClick="startEndlessMode"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="An app developed by\nChris Sprague and Gio Carvelli"
+            android:id="@+id/textView"
+            android:layout_gravity="center|bottom"
+            android:layout_marginBottom="275dp" />
     </FrameLayout>
 
 </FrameLayout>

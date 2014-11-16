@@ -270,6 +270,7 @@ public class GameMode extends Activity implements View.OnClickListener{
             playAgainButton.setVisibility(View.VISIBLE);
             QUESTIONS =
                     (new SampleQuestionProvider()).getSampleQuestions();
+            inputLockedOnResponse = true;
             return;
         }
 
@@ -284,6 +285,8 @@ public class GameMode extends Activity implements View.OnClickListener{
                 countdownProgressBar.setProgress(countdownProgressBar.getProgress()-16);
                 // this refers to my confusion over why a decrement of 16 is the trick
                 // this could be an asynchronous problem
+                // UPDATE: This is mildly unreliable and pretty noticeably buggy, especially
+                // when using the fade in / fade out animations for the images
             }
 
             @Override
@@ -458,7 +461,7 @@ public class GameMode extends Activity implements View.OnClickListener{
         TextView ny = (TextView) findViewById( R.id.numYesValue     );
         TextView nn = (TextView) findViewById( R.id.numNoValue      );
         TextView nc = (TextView) findViewById( R.id.correctNumValue );
-        av.setText(Float.valueOf(PERCENT_CORRECT).toString());
+        av.setText(Float.valueOf(Float.valueOf(NUM_CORRECT) / Float.valueOf(NUM_ANSWERED) * 100).toString());
         ny.setText(Integer.valueOf(NUM_YES).toString());
         nn.setText(Integer.valueOf(NUM_NO).toString());
         nc.setText(Integer.valueOf(NUM_CORRECT).toString());
@@ -680,7 +683,7 @@ public class GameMode extends Activity implements View.OnClickListener{
         private final ArrayList<SampleQuestion> SAMPLE_QUESTIONS;
 
         public SampleQuestionProvider() {
-            SAMPLE_QUESTIONS = new ArrayList<SampleQuestion>(16);
+            SAMPLE_QUESTIONS = new ArrayList<SampleQuestion>(30);
             populate_sample_questions();
         }
 
@@ -739,6 +742,18 @@ public class GameMode extends Activity implements View.OnClickListener{
             SampleQuestion q16 = new SampleQuestion(
                     "One of Albert Einstein's most prominent accomplishments in his life was finding the answer to the \"P=NP\" problem", false
             );
+            SampleQuestion q17 = new SampleQuestion(
+                    "Michael Buble was the artist behind the hit single, \"Careless Whisper\"", false
+            );
+            SampleQuestion q18 = new SampleQuestion(
+                    "Trenton is the capital city of the state of New Jersey", true
+            );
+            SampleQuestion q19 = new SampleQuestion(
+                    "Seal is the mastermind behind the touching piece entitled \"Kiss from a Rose\"", true
+            );
+            SampleQuestion q20 = new SampleQuestion(
+                    "The song \"Kiss from a Rose\" was actually part of a soundtrack for a Spiderman movie", true
+            );
 
             SAMPLE_QUESTIONS.add(q1);
             SAMPLE_QUESTIONS.add(q2);
@@ -756,6 +771,10 @@ public class GameMode extends Activity implements View.OnClickListener{
             SAMPLE_QUESTIONS.add(q14);
             SAMPLE_QUESTIONS.add(q15);
             SAMPLE_QUESTIONS.add(q16);
+            SAMPLE_QUESTIONS.add(q17);
+            SAMPLE_QUESTIONS.add(q18);
+            SAMPLE_QUESTIONS.add(q19);
+            SAMPLE_QUESTIONS.add(q20);
 
         }
     }
