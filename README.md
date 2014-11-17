@@ -1,7 +1,9 @@
 KwikThinker
 ===========
 
-Android app for hackRPI.
+Android app for HackRPI.
+
+<i>KwikThinker</i> won <b>"Best Minimalistic App"</b> as well as the <b>IBM BlueMix API awards</b> at the hackathon.
 
 A fast-paced quiz game in which you have a short amount of time to read each statement and decide whether it's true or false. Currently available on Android devices.
 
