@@ -12,4 +12,4 @@ Check it out: you can download the <code>apk</code> [right here](http://www.cs.r
 
 We will be continuing development on this project in the coming weeks. Check back later for any updates!
 
-Interested in working with us, or maybe learning more about the app or us in general? Feel free to [email me](mailto:css7209@rit.edu). (Chris)
+Interested in working with us, or maybe learning more about the app or us in general? Feel free to email me at [css7209@rit.edu](mailto:css7209@rit.edu). (Chris)
