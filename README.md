@@ -5,7 +5,9 @@ Android app for hackRPI.
 
 A fast-paced quiz game in which you have a short amount of time to read each statement and decide whether it's true or false. Currently available on Android devices.
 
-The <code>apk</code> is available for download [right here](http://www.cs.rit.edu/~css7209/Resources/Android/KwikThinker00.apk). Check it out!
+Check it out: you can download the <code>apk</code> [right here](http://www.cs.rit.edu/~css7209/Resources/Android/KwikThinker00.apk).
 -----------
 
 We will be continuing development on this project in the coming weeks. Check back later for any updates!
+
+Interested in working with us, or maybe learning more about the app or us in general? Feel free to [email me](mailto:css7209@rit.edu). (Chris)
