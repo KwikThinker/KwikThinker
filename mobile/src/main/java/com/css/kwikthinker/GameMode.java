@@ -3,7 +3,6 @@ package com.css.kwikthinker;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -26,16 +25,9 @@ import android.widget.ToggleButton;
 
 import com.css.kwikthinker.util.SystemUiHider;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -95,8 +87,6 @@ public class GameMode extends Activity implements View.OnClickListener{
 
     private ArrayList<SampleQuestion> QUESTIONS =
             (new SampleQuestionProvider()).getSampleQuestions();
-
-    private Long JON_SKEETS_REPUTATION;
 
     private int NUM_CORRECT = 0;
     private int NUM_YES = 0;
@@ -657,126 +647,8 @@ public class GameMode extends Activity implements View.OnClickListener{
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
 
-
-
-
-
-
-
-
-
-
-    private static String readUrl(String urlString) {
-
-        try {
-            URL url = new URL(urlString);
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(url.openStream()));
-
-            String inputLine;
-            int i = 0;
-            while ((inputLine = in.readLine()) != null) {
-                if (inputLine.contains("<span class=\"count\">")) {
-                    Pattern regex = Pattern.compile("<span class=\"count\">(.*?)</span>", Pattern.DOTALL);
-                    Matcher matcher = regex.matcher(inputLine);
-                    Pattern regex2 = Pattern.compile("<([^<>]+)>([^<>]+)</\\1>");
-                    if (matcher.find()) {
-                        String result = matcher.group(1);
-                        return result;
-                    }
-                }
-                i++;
-            }
-            in.close();
-
-            return null; // TODO Change me
-
-            // look out- its the MURLEX!
-        } catch ( MalformedURLException murlex ) {
-            murlex.printStackTrace();
-        } catch ( IOException ioex ) {
-            ioex.printStackTrace();
-        }
-
-        return null;
-    }
-
-    // access stack overflow api
-    private class readURLAsyncTask extends AsyncTask<URL, Integer, Long> {
-
-        public Long doInBackground(URL ... urls){
-
-            try {
-                Long result;
-                URL url = new URL("http://stackoverflow.com/users/22656/jon-skeet");
-                BufferedReader in = new BufferedReader(
-                        new InputStreamReader(url.openStream()));
-
-                String inputLine;
-                int i = 0;
-                while ((inputLine = in.readLine()) != null) {
-                    if (inputLine.contains("<span class=\"count\">")) {
-                        Pattern regex = Pattern.compile("<span class=\"count\">(.*?)</span>", Pattern.DOTALL);
-                        Matcher matcher = regex.matcher(inputLine);
-                        Pattern regex2 = Pattern.compile("<([^<>]+)>([^<>]+)</\\1>");
-                        if (matcher.find()) {
-                            result = Long.parseLong(matcher.group(1).replaceAll(",", ""));
-                            in.close();
-                            JON_SKEETS_REPUTATION = result;
-                            return result;
-                        }
-                    }
-                    i++;
-                }
-                in.close();
-
-                return null;
-
-                // look out- its the MURLEX!
-            } catch ( MalformedURLException murlex ) {
-                murlex.printStackTrace();
-            } catch ( IOException ioex ) {
-                ioex.printStackTrace();
-            } catch ( Exception ex ) {
-                ex.printStackTrace();
-            }
-            return null;
-        }
-    }
-
-    /*
-            BIG SHOUTOUT TO MY BOY JON SKEET ON STACKOVERFLOW
-            http://stackoverflow.com/users/22656/jon-skeet
-
-            THIS IS NOT A RANDOM NUMBER GENERATOR AT ALL
-     */
     public final int getRandomNumber(int lb, int ub) {
-
-        // arbitrary
-        readURLAsyncTask yolo = new readURLAsyncTask();
-        yolo.execute(null, null);
-
-        long startTime = System.currentTimeMillis();
-        while ( JON_SKEETS_REPUTATION == null )
-        {
-            // wait up to 10 seconds on fetching Jon Skeet's reputation
-            if ( System.currentTimeMillis() - startTime > 10000 ) break;
-        }
-
-        /* debug */
-        // System.err.println(" ........................... " + JON_SKEETS_REPUTATION);
-
-        int result;
-        if ( JON_SKEETS_REPUTATION != null && ( (new Random()).nextInt((1)+1)) == 1 ) {
-            // do something with Jon Skeet's reputation here
-            result = (int) Math.floor( JON_SKEETS_REPUTATION % ub ) + lb ;
-            System.err.println("INFO: Successfully used perfect RNG Jon Skeet's Reputation");
-        } else {
-            // we tried :(
-            result = (new Random()).nextInt((ub-lb))+lb;
-        }
-
-        return result;
+        return (new Random()).nextInt((ub-lb))+lb;
     }
 
     static class Item {
