@@ -146,7 +146,6 @@ public class GameMode extends Activity implements View.OnClickListener{
                     }
                 });
 
-
         // Gesture detection
         gestureDetector = new GestureDetector(this, new MyGestureDetector());
         gestureListener = new View.OnTouchListener() {
@@ -157,7 +156,6 @@ public class GameMode extends Activity implements View.OnClickListener{
 
         contentView.setOnClickListener(GameMode.this);
         contentView.setOnTouchListener(gestureListener);
-
 
         countdownProgressBar = (ProgressBar)findViewById(R.id.progressBar);
         countdownProgressBar.setVisibility(View.INVISIBLE);
@@ -237,7 +235,6 @@ public class GameMode extends Activity implements View.OnClickListener{
                 spawnQuestion();
             }
 
-
             public void onTick(long ms) {
                 long s = ms / NUM_SECONDS_PER_MILLISECOND + 1;
                 int a = (int)( ( s / 5.0 ) * 255 ); // TODO global consts
@@ -247,7 +244,6 @@ public class GameMode extends Activity implements View.OnClickListener{
                 countdownTV.setText(String.valueOf(s));
                 countdownTV.setTextColor(countdownTV.getTextColors().withAlpha(a));
             }
-
 
         };
         // do countdown
@@ -272,7 +268,6 @@ public class GameMode extends Activity implements View.OnClickListener{
 
         countdownProgressBar.setProgress(5000); // reset progress bar
         inputLockedOnResponse = false; // reset input lock for answering
-
 
         countdownTV.setTextColor(countdownTV.getTextColors().withAlpha(255));
         int colour = getRandomNumber(0,6); // im british... and pissed!
