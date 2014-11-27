@@ -311,110 +311,6 @@ public class GameMode extends Activity implements View.OnClickListener{
 
     }
 
-    public void simulateSwipeRight ( View view ) {
-
-        ImageView imgView = (ImageView)findViewById(R.id.answerFeedbackImageView);
-
-        if ( ! correctAnswer && ! inputLockedOnResponse ) {
-
-            NUM_ANSWERED++;
-            NUM_CORRECT++;
-            NUM_NO++;
-            PERCENT_CORRECT = Float.valueOf(NUM_CORRECT) / Float.valueOf(NUM_ANSWERED) * 100;
-
-            imgView.setImageResource(R.drawable.korrect_answer144);
-            imgView.setScaleX(5);
-            imgView.setScaleY(5);
-
-            imgView.setVisibility(View.VISIBLE);
-            AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
-            anim.setDuration(750);
-            anim.setRepeatCount(1);
-            anim.setRepeatMode(Animation.REVERSE);
-            imgView.startAnimation(anim);
-            imgView.setVisibility(View.INVISIBLE);
-
-            updateStatsTextViews();
-
-        } else if ( ! inputLockedOnResponse ) {
-
-            NUM_ANSWERED++;
-            NUM_NO++;
-            PERCENT_CORRECT = Float.valueOf(NUM_CORRECT) / Float.valueOf(NUM_ANSWERED) * 100;
-
-            imgView.setImageResource(R.drawable.krong_answer144);
-            imgView.setScaleX(5);
-            imgView.setScaleY(5);
-
-            imgView.setVisibility(View.VISIBLE);
-            AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
-            anim.setDuration(750);
-            anim.setRepeatCount(1);
-            anim.setRepeatMode(Animation.REVERSE);
-            imgView.startAnimation(anim);
-            imgView.setVisibility(View.INVISIBLE);
-
-            updateStatsTextViews();
-
-        }
-        inputLockedOnResponse = true;
-        // RIGHT SWIPE
-        // ANSWER "YES"
-        // LOCK INPUT UNTIL NEW QUESTION IS SPAWNED
-    }
-
-    public void simulateSwipeLeft(View view ) {
-
-        ImageView imgView = (ImageView)findViewById(R.id.answerFeedbackImageView);
-
-        if ( correctAnswer && ! inputLockedOnResponse ) {
-
-            NUM_ANSWERED++;
-            NUM_CORRECT++;
-            NUM_YES++;
-            PERCENT_CORRECT = Float.valueOf(NUM_CORRECT) / Float.valueOf(NUM_ANSWERED) * 100;
-
-            imgView.setImageResource(R.drawable.korrect_answer144);
-            imgView.setScaleX(5);
-            imgView.setScaleY(5);
-
-            imgView.setVisibility(View.VISIBLE);
-            AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
-            anim.setDuration(750);
-            anim.setRepeatCount(1);
-            anim.setRepeatMode(Animation.REVERSE);
-            imgView.startAnimation(anim);
-            imgView.setVisibility(View.INVISIBLE);
-
-            updateStatsTextViews();
-
-        } else if ( ! inputLockedOnResponse ) {
-
-            NUM_ANSWERED++;
-            NUM_NO++;
-            PERCENT_CORRECT = Float.valueOf(NUM_CORRECT) / Float.valueOf(NUM_ANSWERED) * 100;
-
-            imgView.setImageResource(R.drawable.krong_answer144);
-            imgView.setScaleX(5);
-            imgView.setScaleY(5);
-
-            imgView.setVisibility(View.VISIBLE);
-            AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
-            anim.setDuration(750);
-            anim.setRepeatCount(1);
-            anim.setRepeatMode(Animation.REVERSE);
-            imgView.startAnimation(anim);
-            imgView.setVisibility(View.INVISIBLE);
-
-            updateStatsTextViews();
-
-        }
-        inputLockedOnResponse = true;
-        // LEFT SWIPE
-        // ANSWER "NO"
-        // LOCK INPUT UNTIL NEW QUESTION IS SPAWNED
-    }
-
     /**
      * Gesture detector detects left/right swipes.
      */
@@ -716,10 +612,10 @@ public class GameMode extends Activity implements View.OnClickListener{
                     "Pi is a rational number", false
             );
             SampleQuestion q5 = new SampleQuestion(
-                    "( ( 3 + 7 ) / 12 ) + ( 7 / 6 ) = 2", true
+                    "17 + 5 = 2 + 18 + 2", true
             );
             SampleQuestion q6 = new SampleQuestion(
-                    "The developers of the app, \"Kwik Thinker\", are very attractive", true
+                    "Chris Hemsworth was nominated People Magazine's \"Sexiest Man Alive\" in 2014", true
             );
             SampleQuestion q7 = new SampleQuestion(
                     "RPI is located in Greece, New York", false
@@ -728,7 +624,7 @@ public class GameMode extends Activity implements View.OnClickListener{
                     "Google's Nexus 6 was released in late 2013", false
             );
             SampleQuestion q9 = new SampleQuestion(
-                    "( ( T && !F ) || ( F && T ) )", true
+                    "T || !F", true
             );
             SampleQuestion q10 = new SampleQuestion(
                     "1436, Christopher Columbus crossed the River Styx", false
@@ -737,19 +633,19 @@ public class GameMode extends Activity implements View.OnClickListener{
                     "Harvey Milk was the first openly gay person elected into California public office", true
             );
             SampleQuestion q12 = new SampleQuestion(
-                    "Android Studio replaced Eclipse and its ADK library as the official IDE for Android development, as determined by Google", true
+                    "The \"Android Studio\" application is used to develop Android apps", true
             );
             SampleQuestion q13 = new SampleQuestion(
-                    "Jupiter is Roman equivalent of Greek mythology's king of the gods, Zues", true
+                    "Jupiter is Roman equivalent of Greek mythology's king of the gods, Zeus", true
             );
             SampleQuestion q14 = new SampleQuestion(
-                    "The average lifespan for women is larger than those of men", true
+                    "On average, women live longer than men", true
             );
             SampleQuestion q15 = new SampleQuestion(
-                    "Git is a centralized Version Control System used widely across the Software Engineering industry", false
+                    "Git is a centralized Version Control System used in Software Engineering", false
             );
             SampleQuestion q16 = new SampleQuestion(
-                    "One of Albert Einstein's most prominent accomplishments in his life was finding the answer to the \"P=NP\" problem", false
+                    "Albert Einstein solved the \"P=NP\" problem", false
             );
             SampleQuestion q17 = new SampleQuestion(
                     "Michael Buble was the artist behind the hit single, \"Careless Whisper\"", false
