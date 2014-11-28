@@ -582,8 +582,8 @@ public class GameMode extends Activity implements View.OnClickListener{
         }
     }
 
-    /* define a bunch of sample questions and the ability to fetch them. */
-    /* "YOu should really use an enum for this, you ding-dong" -Chris */
+    /* Defines a bunch of sample questions, and the ability to fetch them. */
+    /* TODO this should be replaced with a new system, possibly an enum. */
     private class SampleQuestionProvider {
         private final ArrayList<SampleQuestion> SAMPLE_QUESTIONS;
 
