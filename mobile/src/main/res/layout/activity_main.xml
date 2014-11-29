@@ -14,17 +14,17 @@
         android:keepScreenOn="true"
         android:textColor="#FFFFCC"
         android:textStyle="bold"
-        android:textSize="110sp"
+        android:textSize="50sp"
         android:gravity="center"
         android:text="@string/ma_title_text"
-        android:layout_marginBottom="150dp" />
+        android:layout_marginBottom="150sp" />
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
     <FrameLayout android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        android:layout_gravity="center">
+        android:layout_gravity="center_horizontal|top"
+        android:layout_height="wrap_content">
 
         <LinearLayout android:id="@+id/fullscreen_content_controls"
             android:layout_width="match_parent"
@@ -35,33 +35,34 @@
             tools:ignore="UselessParent">
         </LinearLayout>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/start_game_mode_button_text"
-            android:id="@+id/start_endless_mode_button"
-            android:layout_gravity="center|bottom"
-            android:layout_marginBottom="150dp"
-            android:onClick="startEndlessMode"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="An app developed by\nChris Sprague and Gio Carvelli"
-            android:id="@+id/textView"
-            android:layout_gravity="center|bottom"
-            android:layout_marginBottom="275dp" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="View project on GitHub"
-            android:id="@+id/button"
-            android:layout_gravity="center|bottom"
-            android:onClick="thisIsTheMethodThatIsIntendedToDoTheThingThatInvolvesOpeningTheWebBrowserToTheGithubPageUponHittingTheButtonInTheMainActivityAndItsNameAlsoHappensToBeVeryLongBecauseItHelpsObfuscateCodeIfYouThinkAboutItJustALittleBit"
-            android:layout_marginBottom="60dp" />
     </FrameLayout>
+
+    <Button
+        android:layout_width="320sp"
+        android:layout_height="100sp"
+        android:text="@string/start_game_mode_button_text"
+        android:textSize="30sp"
+        android:id="@+id/start_endless_mode_button"
+        android:layout_gravity="center"
+        android:layout_marginTop="125sp"
+        android:onClick="startEndlessMode"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="An app developed by\nChris Sprague and Gio Carvelli"
+        android:id="@+id/textView"
+        android:layout_gravity="center" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View project on GitHub"
+        android:id="@+id/button"
+        android:layout_marginBottom="20sp"
+        android:layout_gravity="center_horizontal|bottom"
+        android:onClick="thisIsTheMethodThatIsIntendedToDoTheThingThatInvolvesOpeningTheWebBrowserToTheGithubPageUponHittingTheButtonInTheMainActivityAndItsNameAlsoHappensToBeVeryLongBecauseItHelpsObfuscateCodeIfYouThinkAboutItJustALittleBit" />
 
 </FrameLayout>
