@@ -20,12 +20,14 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="250px"
+        android:layout_height="500sp"
+        android:textSize="125px"
+        android:layout_marginEnd="20sp"
+        android:layout_marginStart="20sp"
         android:id="@+id/countdownTV"
         android:layout_gravity="center"
         android:gravity="center"
-        android:layout_marginTop="100dp" />
+        android:layout_marginTop="100sp" />
 
     <LinearLayout android:id="@+id/fullscreen_content_controls"
         android:layout_width="match_parent"
@@ -42,9 +44,9 @@
         android:text="@string/EM_START_BUTT_TEXT"
         android:textSize="50dp"
         android:id="@+id/start_em_countdown"
-        android:layout_gravity="center"
+        android:layout_gravity="center|bottom"
         android:onClick="onStartClick"
-        android:layout_marginTop="100dp" />
+        android:layout_marginBottom="100sp" />
 
     <ProgressBar
         style="@android:style/Widget.ProgressBar.Horizontal"
@@ -64,13 +66,6 @@
         android:layout_gravity="center_horizontal|bottom"
         android:layout_marginBottom="100dp"
         android:onClick="onStartClick"/>
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/answerFeedbackImageView"
-        android:layout_gravity="center"
-        android:layout_marginTop="150dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -109,6 +104,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/numNo"
         android:id="@+id/numNoLabel"
+        android:visibility="invisible"
         android:layout_gravity="left|center_vertical"
         android:layout_marginBottom="150dp"
         android:layout_marginLeft="20dp" />
@@ -120,6 +116,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/numYes"
         android:id="@+id/numYesLabel"
+        android:visibility="invisible"
         android:layout_gravity="left|center_vertical"
         android:layout_marginBottom="200dp"
         android:layout_marginLeft="20dp" />
@@ -131,6 +128,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/numCorrect"
         android:id="@+id/numCorrectLabel"
+        android:visibility="invisible"
         android:layout_gravity="left|center_vertical"
         android:layout_marginBottom="250dp"
         android:layout_marginLeft="20dp" />
@@ -142,6 +140,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/percent_correct"
         android:id="@+id/averageLabel"
+        android:visibility="invisible"
         android:layout_gravity="left|center_vertical"
         android:layout_marginBottom="100dp"
         android:layout_marginLeft="20dp" />
@@ -156,23 +155,11 @@
         android:layout_marginBottom="100dp"
         android:layout_marginRight="20dp" />
 
-    <ToggleButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:checked="false"
-        android:id="@+id/toggleButton"
-        android:layout_gravity="center_horizontal|top"
-        android:onClick="onStatsToggle"
-        android:layout_marginTop="200dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black_overlay"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Statistics"
-        android:id="@+id/textView10"
-        android:layout_gravity="center_horizontal|top"
-        android:layout_marginTop="180dp" />
+    <ImageView
+        android:layout_width="50sp"
+        android:layout_height="50sp"
+        android:id="@+id/answerFeedbackImageView"
+        android:layout_gravity="center"
+        android:layout_marginBottom="50sp"/>
 
 </FrameLayout>

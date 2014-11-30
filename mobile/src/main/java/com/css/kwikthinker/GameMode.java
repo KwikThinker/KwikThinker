@@ -21,7 +21,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import com.css.kwikthinker.util.SystemUiHider;
 
@@ -180,28 +179,6 @@ public class GameMode extends Activity implements View.OnClickListener{
         TextView nnl = (TextView) findViewById( R.id.numNoLabel      );
         TextView ncl = (TextView) findViewById( R.id.numCorrectLabel );
 
-        ToggleButton tb = (ToggleButton)findViewById(R.id.toggleButton);
-
-        if ( tb.isChecked() ) {
-            av.setVisibility(View.VISIBLE);
-            ny.setVisibility(View.VISIBLE);
-            nn.setVisibility(View.VISIBLE);
-            nc.setVisibility(View.VISIBLE);
-            avl.setVisibility(View.VISIBLE);
-            nyl.setVisibility(View.VISIBLE);
-            nnl.setVisibility(View.VISIBLE);
-            ncl.setVisibility(View.VISIBLE);
-        } else {
-            av.setVisibility(View.INVISIBLE);
-            ny.setVisibility(View.INVISIBLE);
-            nn.setVisibility(View.INVISIBLE);
-            nc.setVisibility(View.INVISIBLE);
-            avl.setVisibility(View.INVISIBLE);
-            nyl.setVisibility(View.INVISIBLE);
-            nnl.setVisibility(View.INVISIBLE);
-            ncl.setVisibility(View.INVISIBLE);
-        }
-
     }
 
     @Override
@@ -215,6 +192,25 @@ public class GameMode extends Activity implements View.OnClickListener{
     }
 
     public void onStartClick(View view) {
+
+        TextView av = (TextView) findViewById( R.id.averageValue    );
+        TextView ny = (TextView) findViewById( R.id.numYesValue     );
+        TextView nn = (TextView) findViewById( R.id.numNoValue      );
+        TextView nc = (TextView) findViewById( R.id.correctNumValue );
+
+        TextView avl = (TextView) findViewById( R.id.averageLabel    );
+        TextView nyl = (TextView) findViewById( R.id.numYesLabel     );
+        TextView nnl = (TextView) findViewById( R.id.numNoLabel      );
+        TextView ncl = (TextView) findViewById( R.id.numCorrectLabel );
+
+        av.setVisibility(View.INVISIBLE);
+        ny.setVisibility(View.INVISIBLE);
+        nn.setVisibility(View.INVISIBLE);
+        nc.setVisibility(View.INVISIBLE);
+        avl.setVisibility(View.INVISIBLE);
+        nyl.setVisibility(View.INVISIBLE);
+        nnl.setVisibility(View.INVISIBLE);
+        ncl.setVisibility(View.INVISIBLE);
 
         countdownTV.setTextSize(250);
 
@@ -289,6 +285,26 @@ public class GameMode extends Activity implements View.OnClickListener{
             QUESTIONS =
                     (new SampleQuestionProvider()).getSampleQuestions();
             inputLockedOnResponse = true;
+
+            TextView av = (TextView) findViewById( R.id.averageValue    );
+            TextView ny = (TextView) findViewById( R.id.numYesValue     );
+            TextView nn = (TextView) findViewById( R.id.numNoValue      );
+            TextView nc = (TextView) findViewById( R.id.correctNumValue );
+
+            TextView avl = (TextView) findViewById( R.id.averageLabel    );
+            TextView nyl = (TextView) findViewById( R.id.numYesLabel     );
+            TextView nnl = (TextView) findViewById( R.id.numNoLabel      );
+            TextView ncl = (TextView) findViewById( R.id.numCorrectLabel );
+
+            av.setVisibility(View.VISIBLE);
+            ny.setVisibility(View.VISIBLE);
+            nn.setVisibility(View.VISIBLE);
+            nc.setVisibility(View.VISIBLE);
+            avl.setVisibility(View.VISIBLE);
+            nyl.setVisibility(View.VISIBLE);
+            nnl.setVisibility(View.VISIBLE);
+            ncl.setVisibility(View.VISIBLE);
+
             return;
         }
 
@@ -335,8 +351,6 @@ public class GameMode extends Activity implements View.OnClickListener{
                         PERCENT_CORRECT = Float.valueOf(NUM_CORRECT) / Float.valueOf(NUM_ANSWERED) * 100;
 
                         imgView.setImageResource(R.drawable.korrect_answer144);
-                        imgView.setScaleX(5);
-                        imgView.setScaleY(5);
 
                         imgView.setVisibility(View.VISIBLE);
                         AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
@@ -355,8 +369,6 @@ public class GameMode extends Activity implements View.OnClickListener{
                         PERCENT_CORRECT = Float.valueOf(NUM_CORRECT) / Float.valueOf(NUM_ANSWERED) * 100;
 
                         imgView.setImageResource(R.drawable.krong_answer144);
-                        imgView.setScaleX(5);
-                        imgView.setScaleY(5);
 
                         imgView.setVisibility(View.VISIBLE);
                         AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
@@ -384,8 +396,6 @@ public class GameMode extends Activity implements View.OnClickListener{
                         PERCENT_CORRECT = Float.valueOf(NUM_CORRECT) / Float.valueOf(NUM_ANSWERED) * 100;
 
                         imgView.setImageResource(R.drawable.korrect_answer144);
-                        imgView.setScaleX(5);
-                        imgView.setScaleY(5);
 
                         imgView.setVisibility(View.VISIBLE);
                         AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
@@ -404,8 +414,6 @@ public class GameMode extends Activity implements View.OnClickListener{
                         PERCENT_CORRECT = Float.valueOf(NUM_CORRECT) / Float.valueOf(NUM_ANSWERED) * 100;
 
                         imgView.setImageResource(R.drawable.krong_answer144);
-                        imgView.setScaleX(5);
-                        imgView.setScaleY(5);
 
                         imgView.setVisibility(View.VISIBLE);
                         AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
@@ -417,14 +425,18 @@ public class GameMode extends Activity implements View.OnClickListener{
 
                         updateStatsTextViews();
 
+
+
                     }
                     inputLockedOnResponse = true;
+
                     // RIGHT SWIPE
                     // ANSWER "YES"
                     // LOCK INPUT UNTIL NEW QUESTION IS SPAWNED
 
 
                 }
+
             } catch (Exception e) {
                 // nothing
             }
@@ -448,26 +460,6 @@ public class GameMode extends Activity implements View.OnClickListener{
         TextView nnl = (TextView) findViewById( R.id.numNoLabel      );
         TextView ncl = (TextView) findViewById( R.id.numCorrectLabel );
 
-        ToggleButton tb = (ToggleButton) findViewById( R.id.toggleButton );
-        if ( tb.isChecked() ) {
-            av.setVisibility(View.VISIBLE);
-            ny.setVisibility(View.VISIBLE);
-            nn.setVisibility(View.VISIBLE);
-            nc.setVisibility(View.VISIBLE);
-            avl.setVisibility(View.VISIBLE);
-            nyl.setVisibility(View.VISIBLE);
-            nnl.setVisibility(View.VISIBLE);
-            ncl.setVisibility(View.VISIBLE);
-        } else {
-            av.setVisibility(View.INVISIBLE);
-            ny.setVisibility(View.INVISIBLE);
-            nn.setVisibility(View.INVISIBLE);
-            nc.setVisibility(View.INVISIBLE);
-            avl.setVisibility(View.INVISIBLE);
-            nyl.setVisibility(View.INVISIBLE);
-            nnl.setVisibility(View.INVISIBLE);
-            ncl.setVisibility(View.INVISIBLE);
-        }
     }
 
     private void updateStatsTextViews () {
@@ -484,8 +476,6 @@ public class GameMode extends Activity implements View.OnClickListener{
     public void onClick(View v) {
         // nothing yet
     }
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -555,22 +545,6 @@ public class GameMode extends Activity implements View.OnClickListener{
         String language;
         List<Item> items;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     private class SampleQuestion {
         private final String QUESTION_STRING;
