@@ -21,7 +21,7 @@
             <Button
                 android:layout_width="223dp"
                 android:layout_height="wrap_content"
-                android:text="Generate UUID"
+                android:text="@string/GenUUID"
                 android:id="@+id/buttonUUID"
                 android:layout_gravity="center_horizontal" />
 
@@ -29,7 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="UUID"
+                android:text="@string/UUID"
                 android:id="@+id/UUIDlabel"
                 android:layout_gravity="center_horizontal" />
 
@@ -43,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Question text"
+                android:text="@string/QuestionText"
                 android:id="@+id/textView"
                 android:layout_gravity="center_horizontal" />
 
@@ -57,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Answer #1"
+                android:text="@string/ans1"
                 android:id="@+id/textView2"
                 android:layout_gravity="center_horizontal" />
 
@@ -71,7 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Answer #2"
+                android:text="@string/ans2"
                 android:id="@+id/textView3"
                 android:layout_gravity="center_horizontal" />
 
@@ -85,7 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Correct answer index (0 or 1)"
+                android:text="@string/CorrectAnswerIndex"
                 android:id="@+id/textView4"
                 android:layout_gravity="center_horizontal" />
 
@@ -101,7 +101,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Number of correct answers"
+                android:text="@string/NumCorrectAnswers"
                 android:id="@+id/textView5"
                 android:layout_gravity="center_horizontal" />
 
@@ -117,7 +117,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Number of incorrect answers"
+                android:text="@string/NumIncorrectAnswers"
                 android:id="@+id/textView6"
                 android:layout_gravity="center_horizontal" />
 
@@ -132,7 +132,7 @@
             <Button
                 android:layout_width="210dp"
                 android:layout_height="wrap_content"
-                android:text="Submit to server"
+                android:text="@string/SubmitToServer"
                 android:id="@+id/buttonSubmit"
                 android:layout_gravity="center_horizontal" />
         </LinearLayout>

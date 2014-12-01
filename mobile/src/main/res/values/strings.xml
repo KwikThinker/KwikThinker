@@ -15,5 +15,16 @@
     <string name="title_activity_tutorial">Tutorial</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="GenUUID">Generate UUID</string>
+    <string name="UUID">UUID</string>
+    <string name="QuestionText">Question text</string>
+    <string name="AppDevedByAuthors">An app developed by\nChris Sprague and Gio Carvelli</string>
+    <string name="ans1">Answer #1</string>
+    <string name="ans2">Answer #2</string>
+    <string name="ViewOnGitHub">View Project on GitHub</string>
+    <string name="CorrectAnswerIndex">Correct answer index (0 or 1)</string>
+    <string name="NumCorrectAnswers">Number of correct answers</string>
+    <string name="NumIncorrectAnswers">Number of incorrect answers</string>
+    <string name="SubmitToServer">Submit to server</string>
 
 </resources>
