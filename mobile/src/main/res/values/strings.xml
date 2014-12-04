@@ -3,7 +3,7 @@
 
     <string name="app_name">Kwik Thinker</string>
     <string name="ma_title_text">KWIK THINKER</string>
-    <string name="percent_correct">% correct</string>
+    <string name="percent_correct">Percent Correct</string>
     <string name="numYes"># "Yes"</string>
     <string name="numNo"># "No"</string>
     <string name="numCorrect"># correct</string>
@@ -26,5 +26,6 @@
     <string name="NumCorrectAnswers">Number of correct answers</string>
     <string name="NumIncorrectAnswers">Number of incorrect answers</string>
     <string name="SubmitToServer">Submit to server</string>
+    <string name="feedbackImageViewDescription">This image view spawns the pictures and animation giving visual feedback to the user whether or not they got the question correct.</string>
 
 </resources>

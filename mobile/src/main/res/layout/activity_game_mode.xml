@@ -159,6 +159,7 @@
         android:layout_width="50sp"
         android:layout_height="50sp"
         android:id="@+id/answerFeedbackImageView"
+        android:contentDescription="@string/feedbackImageViewDescription"
         android:layout_gravity="center"
         android:layout_marginBottom="50sp"/>
 
