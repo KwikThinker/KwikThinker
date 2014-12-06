@@ -80,23 +80,16 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 20 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="ibmfilesync" level="project" />
-    <orderEntry type="library" exported="" name="commons-codec-1.6" level="project" />
-    <orderEntry type="library" exported="" name="fluent-hc-4.3.6" level="project" />
-    <orderEntry type="library" exported="" name="ibmlocation" level="project" />
-    <orderEntry type="library" exported="" name="support-v4-20.0.0" level="project" />
-    <orderEntry type="library" exported="" name="play-services-5.0.89" level="project" />
-    <orderEntry type="library" exported="" name="httpclient-cache-4.3.6" level="project" />
-    <orderEntry type="library" exported="" name="ibmdata" level="project" />
-    <orderEntry type="library" exported="" name="httpmime-4.3.6" level="project" />
     <orderEntry type="library" exported="" name="ibmpush" level="project" />
     <orderEntry type="library" exported="" name="ibmcloudcode" level="project" />
-    <orderEntry type="library" exported="" name="httpclient-4.3.6" level="project" />
+    <orderEntry type="library" exported="" name="ibmfilesync" level="project" />
+    <orderEntry type="library" exported="" name="ibmlocation" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-20.0.0" level="project" />
-    <orderEntry type="library" exported="" name="httpcore-4.3.3" level="project" />
-    <orderEntry type="library" exported="" name="commons-logging-1.1.3" level="project" />
-    <orderEntry type="library" exported="" name="ibmbluemix" level="project" />
+    <orderEntry type="library" exported="" name="support-v4-20.0.0" level="project" />
+    <orderEntry type="library" exported="" name="play-services-5.0.89" level="project" />
     <orderEntry type="library" exported="" name="gson-2.3" level="project" />
+    <orderEntry type="library" exported="" name="ibmbluemix" level="project" />
+    <orderEntry type="library" exported="" name="ibmdata" level="project" />
   </component>
 </module>
 
