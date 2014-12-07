@@ -33,7 +33,9 @@
                 android:id="@+id/UUIDlabel"
                 android:layout_gravity="center_horizontal" />
 
+            <!-- Can the inputType of this be a number? -->
             <EditText
+                android:inputType="text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/editTextUUID"
@@ -48,6 +50,7 @@
                 android:layout_gravity="center_horizontal" />
 
             <EditText
+                android:inputType="text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/editTextQuestionText"
@@ -62,6 +65,7 @@
                 android:layout_gravity="center_horizontal" />
 
             <EditText
+                android:inputType="text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/editTextAnswer1"
@@ -76,6 +80,7 @@
                 android:layout_gravity="center_horizontal" />
 
             <EditText
+                android:inputType="text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/editTextAnswer2"

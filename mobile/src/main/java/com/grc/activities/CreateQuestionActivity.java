@@ -116,7 +116,7 @@ public class CreateQuestionActivity extends Activity {
                     Log.e("IllegalStateException", "Exception caught!");
                 }
 
-                Toast.makeText(context, "Entry submitted.", Toast.LENGTH_LONG);
+                Toast.makeText(context, "Entry submitted.", Toast.LENGTH_LONG).show();
             }
         });
     }
